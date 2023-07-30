@@ -1,3 +1,5 @@
+import Feed from "@components/Feed";
+
 const Home = () => {
     return (
         <>
@@ -12,7 +14,7 @@ const Home = () => {
                     images.
                 </p>
 
-                {/* todo: Feed */}
+            <Feed></Feed>
             </section>
         </>
     );
