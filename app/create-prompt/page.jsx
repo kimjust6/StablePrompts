@@ -17,6 +17,9 @@ const CreatePrompt = () => {
         e.preventDefault();
         setSubmitting(true);
 
+        if (post.tag.substring(0.1 != "#")) {
+            post.tag = "#" + post.tag;
+        }
         // send POST to local api passing in data
         try {
             const response = await fetch("/api/prompt/new", {
