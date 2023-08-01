@@ -7,7 +7,10 @@ import Image from "next/image";
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
     const [copiedPost, setCopiedPost] = useState("");
-
+    const { data: session } = useSession();
+    // get path of url
+    const pathName = usePathname();
+    const router = useRouter();
     const handleCopy = () => {
         // set state to post.prompt
         setCopiedPost(post.prompt);
@@ -64,6 +67,17 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             >
                 {post.tag}
             </p>
+            {/* check if the user is viewing own profile */}
+            {session?.user.id === post.creator._id && pathName === "/profile" && (
+                <div className="mt-5 flex-center gap-4 border-t border-gray-100">
+                    <p className="font-inter text-sm text-sm cursor-pointer hover:text-violet-700 text-violet-500">
+                        Edit
+                    </p>
+                    <p className="font-inter text-sm text-sm cursor-pointer hover:text-red-700 text-red-500">
+                        Delete
+                    </p>
+                </div>
+            )}
         </div>
     );
 };
