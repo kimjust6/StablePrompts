@@ -49,3 +49,20 @@ export const PATCH = async (req, { params }) => {
         return new Response("Error: Failed to update prompt.", { status: 500 });
     }
 };
+
+// DELETE
+export const DELETE = async (req, { params }) => {
+    const { prompt, tag } = await req.json();
+
+    try {
+        await connectToDB();
+        // find singular prompt with id params.id and delete
+        const existingPrompt = await Prompt.findByIAndRemove(params.id);
+
+        // success case
+        return new Response("Prompt deleted successfully!", { status: 200 });
+    } catch (error) {
+        console.log(error);
+        return new Response("Error: Failed to delete prompt.", { status: 500 });
+    }
+};
