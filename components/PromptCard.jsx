@@ -1,11 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
+    const [copiedPost, setCopiedPost] = useState("");
+
+    const handleCopy = () => {
+        // set state to post.prompt
+        setCopiedPost(post.prompt);
+        // set clipboard to prompt
+        navigator.clipboard.writeText(post.prompt);
+
+        // after three seconds, reset the state of copiedPost
+        setTimeout(() => setCopiedPost(""), 2000);
+    };
     return (
         <div className="prompt_card">
             <div className="flex justify-between items-start gap-5">
@@ -24,7 +35,35 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
                         <p className="font-inter text-sm text-gray-500">{post.creator.email}</p>
                     </div>
                 </div>
+                <div
+                    className="copy_btn"
+                    onClick={() => {
+                        handleCopy(post.prompt);
+                    }}
+                >
+                    <Image
+                        width={12}
+                        height={12}
+                        className="text-violet-400"
+                        alt="copy icon"
+                        src={
+                            copiedPost === post.prompt
+                                ? "/assets/icons/tick.svg"
+                                : "/assets/icons/copy.svg"
+                        }
+                    ></Image>
+                </div>
             </div>
+            <p className="my-4 font-satoshi text-md text-gray-700">{post.prompt}</p>
+            <p
+                className="font-inter text-md text-violet-400 hover:text-violet-600 cursor-pointer"
+                onClick={() => {
+                    // check if handletagclick exists, and call it if it does
+                    handleTagClick && handleTagClick(post.tag);
+                }}
+            >
+                {post.tag}
+            </p>
         </div>
     );
 };
