@@ -59,7 +59,7 @@ const Nav = () => {
                             </button>
                             <Link href="/profile">
                                 <Image
-                                    src="/assets/images/profile.svg"
+                                    src={session?.user.image || "/assets/icons/profile.svg"}
                                     width={45}
                                     height={45}
                                     className="rounded-full"
@@ -87,11 +87,11 @@ const Nav = () => {
                 </div>
 
                 {/* Desktop Nav */}
-                <div className="hidden md:flex relative">
+                <div className="sm:hidden flex relative">
                     {session?.user ? (
                         <div className="flex">
                             <Image
-                                src="/assets/images/logo1.png"
+                                src={session?.user.image || "/assets/icons/profile.svg"}
                                 width={45}
                                 height={45}
                                 className="rounded-full"
