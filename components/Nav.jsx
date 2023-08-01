@@ -13,6 +13,10 @@ const Nav = () => {
     const [providers, setProviders] = useState(true);
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
+    const reverseDropDown = () => {
+        setIsDropDownOpen((prevState) => !prevState);
+    };
+
     // runs once on load
     useEffect(() => {
         const initializeProviders = async () => {
@@ -94,23 +98,23 @@ const Nav = () => {
                                 src={session?.user.image || "/assets/icons/profile.svg"}
                                 width={45}
                                 height={45}
-                                className="rounded-full"
+                                className="rounded-full cursor-pointer"
                                 alt="profile picture"
-                                onClick={() => {
-                                    setIsDropDownOpen((prevState) => !prevState);
-                                }}
+                                onClick={reverseDropDown}
                             ></Image>
                             {isDropDownOpen && (
                                 <div className="dropdown">
                                     <Link
                                         href="/profile"
                                         className="dropdown_link"
+                                        onClick={reverseDropDown}
                                     >
                                         My Profile
                                     </Link>
                                     <Link
                                         href="/create-prompt"
                                         className="dropdown_link"
+                                        onClick={reverseDropDown}
                                     >
                                         Post Prompt
                                     </Link>
