@@ -48,7 +48,7 @@ const Nav = () => {
                                 href="/create-prompt"
                                 className="black_btn"
                             >
-                                Create Prompt
+                                Post Prompt
                             </Link>
                             <button
                                 type="button"
@@ -112,7 +112,7 @@ const Nav = () => {
                                         href="/create-prompt"
                                         className="dropdown_link"
                                     >
-                                        Create Prompt
+                                        Post Prompt
                                     </Link>
                                     <button
                                         type="button"
