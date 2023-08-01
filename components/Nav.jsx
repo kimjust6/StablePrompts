@@ -39,7 +39,7 @@ const Nav = () => {
                     <p className="logo_text">Stable Prompts</p>
                 </Link>
 
-                {/* Mobile Nav */}
+                {/* Desktop Nav */}
 
                 <div className="sm:flex hidden">
                     {session?.user ? (
@@ -70,23 +70,23 @@ const Nav = () => {
                     ) : (
                         <>
                             {providers &&
-                                Object.values(providers).map((provider) => {
+                                Object.values(providers).map((provider) => (
                                     <button
                                         type="button"
-                                        key={provider.name}
+                                        key={provider?.name}
                                         onClick={() => {
-                                            signIn(provider.id);
+                                            signIn(provider?.id);
                                         }}
                                         className="black_btn"
                                     >
                                         Sign In
-                                    </button>;
-                                })}
+                                    </button>
+                                ))}
                         </>
                     )}
                 </div>
 
-                {/* Desktop Nav */}
+                {/* Mobile Nav */}
                 <div className="sm:hidden flex relative">
                     {session?.user ? (
                         <div className="flex">
