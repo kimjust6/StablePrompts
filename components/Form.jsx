@@ -7,10 +7,13 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
                 <span className="purple_gradient">{type} Post</span>
             </h1>
             <div className="desc text-left max-w-md">
-                <p className="pt-3">
+                <span className="pt-3">
                     Our imagination is the only limit to what we can hope to have in the future.
-                </p>
-                <span className="font-satoshi font-bold text-gray-800"> Charlies Kettering</span>
+                    <span className="font-satoshi font-bold text-gray-800">
+                        {" "}
+                        - Charlies Kettering
+                    </span>
+                </span>
             </div>
 
             <form
