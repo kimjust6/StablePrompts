@@ -2,7 +2,7 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 
 import User from "@models/user";
-import { connectionToDB } from "@utils/database";
+import { connectToDB } from "@utils/database";
 
 const handler = NextAuth({
     providers: [
@@ -11,7 +11,7 @@ const handler = NextAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         }),
     ],
-    callback: {
+    callbacks: {
         async session({ session }) {
             const sessionUser = await User.findOne({
                 email: session.user.email,
@@ -22,9 +22,9 @@ const handler = NextAuth({
         },
 
         async signIn({ profile }) {
-            console.log("nice");
+            console.log({ profile: profile });
             try {
-                await connectionToDB();
+                await connectToDB();
 
                 // if user exists
                 const doesUserExist = await User.findOne({ email: profile.email });
@@ -33,8 +33,8 @@ const handler = NextAuth({
                 if (!doesUserExist) {
                     await User.create({
                         email: profile.email,
-                        // remove spaces from username
-                        username: profile.name.replace(" ", "").toLowerCase(),
+                        fName: profile.given_name,
+                        lName: profile.family_name,
                         image: profile.picture,
                     });
                 }

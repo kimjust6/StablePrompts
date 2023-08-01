@@ -6,26 +6,13 @@ const UserSchema = new Schema({
         unique: [true, "That email is already in use."],
         required: [true, "An email address is required."],
     },
-    username: {
+    fName: {
         type: String,
-        unique: [true, "That username is already in use."],
-        required: [true, "A username is required."],
-        match: [
-            /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
-            "Username invalid, it must contain 8-20 alphanumeric characters.",
-        ],
-
-        // ^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
-        //  └─────┬────┘└───┬──┘└─────┬─────┘└─────┬─────┘ └───┬───┘
-        //        │         │         │            │           no _ or . at the end
-        //        │         │         │            │
-        //        │         │         │            allowed characters
-        //        │         │         │
-        //        │         │         no __ or _. or ._ or .. inside
-        //        │         │
-        //        │         no _ or . at the beginning
-        //        │
-        //        username is 8-20 characters long
+        required: [true, "A first name is required."],
+    },
+    lName: {
+        type: String,
+        required: [true, "A last name is required."],
     },
     image: {
         type: String,
