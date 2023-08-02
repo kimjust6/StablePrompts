@@ -52,12 +52,10 @@ export const PATCH = async (req, { params }) => {
 
 // DELETE
 export const DELETE = async (req, { params }) => {
-    const { prompt, tag } = await req.json();
-
     try {
         await connectToDB();
         // find singular prompt with id params.id and delete
-        const existingPrompt = await Prompt.findByIAndRemove(params.id);
+        await Prompt.findByIdAndRemove(params.id);
 
         // success case
         return new Response("Prompt deleted successfully!", { status: 200 });
