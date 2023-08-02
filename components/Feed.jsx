@@ -34,7 +34,6 @@ const Feed = () => {
             const responsePosts = await response.json();
             setPosts(responsePosts);
             setAllPosts(responsePosts);
-            console.log(responsePosts)
         };
 
         fetchPosts();

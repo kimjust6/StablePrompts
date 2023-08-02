@@ -4,7 +4,7 @@ import Nav from "@components/Nav";
 import Provider from "@components/Provider";
 
 export const metadata = {
-    title: "Stable Diffusion Prompter",
+    title: "Stable Prompts",
     description: "Find and Share prompts for Stable Diffusion",
 };
 
