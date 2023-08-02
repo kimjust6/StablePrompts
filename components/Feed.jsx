@@ -34,6 +34,7 @@ const Feed = () => {
             const responsePosts = await response.json();
             setPosts(responsePosts);
             setAllPosts(responsePosts);
+            console.log(responsePosts)
         };
 
         fetchPosts();
@@ -41,6 +42,7 @@ const Feed = () => {
 
     return (
         <section className="feed">
+
             <form className="relative w-full flex-center">
                 <input
                     type="text"
