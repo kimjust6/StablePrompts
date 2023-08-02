@@ -2,12 +2,21 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+
 import Form from "@components/Form";
 
 const UpdatePrompt = () => {
     // get url parameters
 
     const router = useRouter();
+    const { data: session, status } = useSession({
+        required: true,
+        onUnauthenticated() {
+            router.push("/");
+        },
+    });
+    
     const searchParams = useSearchParams();
     const postId = searchParams.get("id");
     const [post, setPost] = useState({ prompt: "", tag: "" });
@@ -31,7 +40,7 @@ const UpdatePrompt = () => {
         e.preventDefault();
         setSubmitting(true);
 
-        if (post.tag.substring(0,1) != "#") {
+        if (post.tag.substring(0, 1) != "#") {
             post.tag = "#" + post.tag;
         }
         // send PATCH to local api passing to edit

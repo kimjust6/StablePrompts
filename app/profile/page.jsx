@@ -7,9 +7,14 @@ import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
 
 const myProfile = () => {
-    const [posts, setPosts] = useState([]);
-    const { data: session } = useSession();
+    const [posts, setPosts] = useState(null);
     const router = useRouter();
+    const { data: session, status } = useSession({
+        required: true,
+        onUnauthenticated() {
+            router.push("/");
+        },
+    });
 
     // method that handles edit post
     const handleEdit = (post) => {
@@ -53,7 +58,13 @@ const myProfile = () => {
     return (
         <Profile
             name="My"
-            desc="Welcome to your profile! Here are your posts."
+            desc={
+                status === "authenticated"
+                    ? posts?.length
+                        ? "Welcome to your profile! Here are your posts."
+                        : "Welcome to your profile! Looks like you haven't made any posts. Try posting a new prompt!"
+                    : ""
+            }
             data={posts}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
