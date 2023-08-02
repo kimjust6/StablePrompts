@@ -6,8 +6,24 @@ import PromptCardList from "./PromptCardList";
 const Feed = () => {
     const [searchText, setSearchText] = useState("");
     const [posts, setPosts] = useState([]);
+    const [allPosts, setAllPosts] = useState([]);
     const searchOnChange = (e) => {
-        setSearchText(e.target.value);
+        const text = (e?.target?.value ?? e).toLowerCase();
+        setSearchText(text);
+
+        // show all posts if there is no text
+        if (text === "") {
+            setPosts(allPosts);
+        } else {
+            // check if post includeds substring
+            const filteredPosts = allPosts.filter(
+                (p) =>
+                    p.prompt.toLowerCase().includes(text) ||
+                    p.tag.toLowerCase().includes(text) 
+            );
+
+            setPosts(filteredPosts);
+        }
     };
 
     // on first load, get all the posts
@@ -16,6 +32,7 @@ const Feed = () => {
             const response = await fetch("/api/prompt");
             const responsePosts = await response.json();
             setPosts(responsePosts);
+            setAllPosts(responsePosts);
         };
 
         fetchPosts();
@@ -35,7 +52,7 @@ const Feed = () => {
             </form>
             <PromptCardList
                 data={posts}
-                handleTagClick={() => {}}
+                handleTagClick={searchOnChange}
             ></PromptCardList>
         </section>
     );
