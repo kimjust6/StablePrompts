@@ -80,8 +80,13 @@ const Nav = () => {
                                         onClick={() => {
                                             signIn(provider?.id);
                                         }}
-                                        className="black_btn"
+                                        className="black_btn gap-2"
                                     >
+                                        <Image
+                                            src="/assets/icons/google.svg"
+                                            height={20}
+                                            width={20}
+                                        ></Image>
                                         Sign In
                                     </button>
                                 ))}
@@ -140,8 +145,13 @@ const Nav = () => {
                                         onClick={() => {
                                             signIn(provider?.id);
                                         }}
-                                        className="black_btn"
+                                        className="black_btn gap-2"
                                     >
+                                        <Image
+                                            src="/assets/icons/google.svg"
+                                            height={20}
+                                            width={20}
+                                        ></Image>
                                         Sign In
                                     </button>
                                 ))}
