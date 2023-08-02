@@ -35,7 +35,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
                         <h3 className="font-satoshi font-semibold text-gray-900">
                             {post?.creator?.fName} {post?.creator?.lName}
                         </h3>
-                        <p className="font-inter text-sm text-gray-500">{post.creator.email}</p>
+                        <p className="font-inter text-sm text-gray-500">{post?.creator?.email}</p>
                     </div>
                 </div>
                 <div
@@ -68,7 +68,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
                 {post.tag}
             </p>
             {/* check if the user is viewing own profile */}
-            {session?.user.id === post.creator._id && pathName === "/profile" && (
+            {session?.user.id === post?.creator?._id && pathName === "/profile" && (
                 <div className="mt-3 flex-center gap-6 border-t border-gray-300">
                     <p
                         className="mt-3 font-inter text-sm text-sm cursor-pointer hover:text-violet-700 text-violet-500"
