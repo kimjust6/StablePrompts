@@ -8,7 +8,6 @@ import Form from "@components/Form";
 const CreatePrompt = () => {
     const { data: session } = useSession();
     const router = useRouter();
-
     const [post, setPost] = useState({ prompt: "", tag: "" });
     const [submitting, setSubmitting] = useState(false);
 
@@ -17,7 +16,7 @@ const CreatePrompt = () => {
         e.preventDefault();
         setSubmitting(true);
 
-        if (post.tag.substring(0.1 != "#")) {
+        if (post.tag.substring(0,1) != "#") {
             post.tag = "#" + post.tag;
         }
         // send POST to local api passing in data
