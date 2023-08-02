@@ -13,7 +13,6 @@ const Home = () => {
                     Find and share prompts for stable diffusion to create your own AI generated
                     images.
                 </p>
-
                 <Feed></Feed>
             </section>
         </div>
