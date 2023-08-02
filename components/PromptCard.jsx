@@ -69,17 +69,21 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             </p>
             {/* check if the user is viewing own profile */}
             {session?.user.id === post.creator._id && pathName === "/profile" && (
-                <div className="mt-5 flex-center gap-4 border-t border-gray-100">
-                    <p className="font-inter text-sm text-sm cursor-pointer hover:text-violet-700 text-violet-500"
-                    onClick={() => {
-                      handleEdit(post);
-                  }}>
+                <div className="mt-3 flex-center gap-6 border-t border-gray-300">
+                    <p
+                        className="mt-3 font-inter text-sm text-sm cursor-pointer hover:text-violet-700 text-violet-500"
+                        onClick={() => {
+                            handleEdit(post);
+                        }}
+                    >
                         Edit
                     </p>
-                    <p className="font-inter text-sm text-sm cursor-pointer hover:text-red-700 text-red-500"
-                    onClick={() => {
-                      handleDelete(post);
-                  }}>
+                    <p
+                        className="mt-3 font-inter text-sm text-sm cursor-pointer hover:text-red-700 text-red-500"
+                        onClick={() => {
+                            handleDelete(post);
+                        }}
+                    >
                         Delete
                     </p>
                 </div>
