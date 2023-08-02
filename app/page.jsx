@@ -2,7 +2,7 @@ import Feed from "@components/Feed";
 
 const Home = () => {
     return (
-        <>
+        <div>
             <section className="w-full flex-center flex-col ">
                 <h1 className="head_text text-center">
                     Find and Share
@@ -14,9 +14,9 @@ const Home = () => {
                     images.
                 </p>
 
-            <Feed></Feed>
+                <Feed></Feed>
             </section>
-        </>
+        </div>
     );
 };
 
