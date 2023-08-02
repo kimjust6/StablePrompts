@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const Nav = () => {
     // get session info
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
     const router = useRouter();
     const [providers, setProviders] = useState(true);
     const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -46,7 +46,7 @@ const Nav = () => {
                 {/* Desktop Nav */}
 
                 <div className="sm:flex hidden">
-                    {session?.user ? (
+                    {status !== "loading" && session?.user ? (
                         <div className="flex gap-3 md:gap-5">
                             <Link
                                 href="/create-prompt"
@@ -98,7 +98,7 @@ const Nav = () => {
 
                 {/* Mobile Nav */}
                 <div className="sm:hidden flex relative">
-                    {session?.user ? (
+                    {status !== "loading" && session?.user ? (
                         <div className="flex">
                             <Image
                                 src={session?.user.image || "/assets/icons/profile.svg"}
