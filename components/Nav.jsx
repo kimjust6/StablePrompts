@@ -7,7 +7,6 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
     // get session info
-
     const { data: session } = useSession();
 
     const [providers, setProviders] = useState(true);
@@ -35,7 +34,7 @@ const Nav = () => {
                     className="flex gap-2 flex-center"
                 >
                     <Image
-                        src="/assets/images/logo1.png"
+                        src="/assets/images/logo.svg"
                         width={45}
                         height={45}
                         alt="logo"
