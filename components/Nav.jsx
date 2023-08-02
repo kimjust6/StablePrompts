@@ -86,6 +86,7 @@ const Nav = () => {
                                             src="/assets/icons/google.svg"
                                             height={20}
                                             width={20}
+                                            alt="googleLogo"
                                         ></Image>
                                         Sign In
                                     </button>
@@ -149,6 +150,7 @@ const Nav = () => {
                                     >
                                         <Image
                                             src="/assets/icons/google.svg"
+                                            alt="googleLogo"
                                             height={20}
                                             width={20}
                                         ></Image>
