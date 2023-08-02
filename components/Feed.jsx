@@ -15,11 +15,12 @@ const Feed = () => {
         if (text === "") {
             setPosts(allPosts);
         } else {
-            // check if post includeds substring
+            // check if post includes substring
             const filteredPosts = allPosts.filter(
                 (p) =>
                     p.prompt.toLowerCase().includes(text) ||
-                    p.tag.toLowerCase().includes(text) 
+                    p.tag.toLowerCase().includes(text) ||
+                    p.creator.email.toLowerCase().includes(text)
             );
 
             setPosts(filteredPosts);
