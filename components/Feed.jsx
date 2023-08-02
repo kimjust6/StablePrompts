@@ -2,11 +2,12 @@
 import { useState, useEffect } from "react";
 
 import PromptCardList from "./PromptCardList";
+import Loading from "./Loading";
 
 const Feed = () => {
     const [searchText, setSearchText] = useState("");
     const [posts, setPosts] = useState([]);
-    const [allPosts, setAllPosts] = useState([]);
+    const [allPosts, setAllPosts] = useState(null);
     const searchOnChange = (e) => {
         const text = (e?.target?.value ?? e).toLowerCase();
         setSearchText(text);
@@ -41,7 +42,6 @@ const Feed = () => {
 
     return (
         <section className="feed">
-
             <form className="relative w-full flex-center">
                 <input
                     type="text"
@@ -52,10 +52,14 @@ const Feed = () => {
                     className="search_input peer"
                 ></input>
             </form>
-            <PromptCardList
-                data={posts}
-                handleTagClick={searchOnChange}
-            ></PromptCardList>
+            {allPosts === null ? (
+                <Loading></Loading>
+            ) : (
+                <PromptCardList
+                    data={posts}
+                    handleTagClick={searchOnChange}
+                ></PromptCardList>
+            )}
         </section>
     );
 };

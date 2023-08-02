@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import Form from "@components/Form";
+import Loading from "@components/Loading";
 
 const UpdatePrompt = () => {
     // get url parameters
@@ -16,11 +17,12 @@ const UpdatePrompt = () => {
             router.push("/");
         },
     });
-    
+
     const searchParams = useSearchParams();
     const postId = searchParams.get("id");
     const [post, setPost] = useState({ prompt: "", tag: "" });
     const [submitting, setSubmitting] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     // on load, call the api to get post data
     useEffect(() => {
@@ -29,6 +31,7 @@ const UpdatePrompt = () => {
             const response = await fetch(`/api/prompt/${postId}`);
             const data = await response.json();
             setPost(data);
+            setIsLoading(false);
         };
         if (postId) {
             getPromptDetails();
@@ -64,7 +67,7 @@ const UpdatePrompt = () => {
         }
     };
 
-    return (
+    return status === "authenticated" && !isLoading ? (
         <Form
             type="Edit"
             post={post}
@@ -72,6 +75,8 @@ const UpdatePrompt = () => {
             submitting={submitting}
             handleSubmit={handleUpdatePrompt}
         ></Form>
+    ) : (
+        <Loading></Loading>
     );
 };
 
