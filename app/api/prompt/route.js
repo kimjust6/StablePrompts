@@ -16,6 +16,6 @@ export const GET = async (req) => {
         } catch (error2) {
             console.log(error2);
             return new Response("Error: Failed to retrieve prompts.", { status: 500 });
-        }
+        } 
     }
 };
