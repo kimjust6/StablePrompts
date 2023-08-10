@@ -13,7 +13,7 @@ export const GET = async (req) => {
             const prompts = await Prompt.find({}).populate("creator");
             return new Response(JSON.stringify(prompts), { status: 200 });
         } catch (error2) {
-            console.log(erro2r);
+            console.log(error2);
             return new Response("Error: Failed to retrieve prompts.", { status: 500 });
         }
     }
