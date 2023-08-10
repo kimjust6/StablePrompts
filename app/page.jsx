@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 export const Root = () => {
-    const { push } = useRouter();
+    const router = useRouter();
 
     useEffect(() => {
-        push("/home");
+        router.push("/home");
     }, []);
     return <></>;
 };
