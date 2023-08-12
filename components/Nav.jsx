@@ -29,7 +29,7 @@ const Nav = () => {
 
     return (
         <>
-            <nav className="flex-between w-full mb-16 pt-3">
+            <nav className="flex-between w-full mb-16 pt-3" >
                 <Link
                     href="/"
                     className="flex gap-2 flex-center"
@@ -43,63 +43,25 @@ const Nav = () => {
                     <p className="logo_text">Stable Prompts</p>
                 </Link>
 
-                {/* Desktop Nav */}
-
-                <div className="sm:flex hidden">
-                    {status !== "loading" && session?.user ? (
-                        <div className="flex gap-3 md:gap-5">
-                            <Link
-                                href="/create-prompt"
-                                className="black_btn"
-                            >
-                                Post Prompt
-                            </Link>
-                            <button
-                                type="button"
-                                onClick={signOut}
-                                className="outline_btn"
-                            >
-                                Sign Out
-                            </button>
-                            <Link href="/profile">
-                                <Image
-                                    src={session?.user.image || "/assets/icons/profile.svg"}
-                                    width={45}
-                                    height={45}
-                                    className="rounded-full"
-                                    alt="profile picture"
-                                ></Image>
-                            </Link>
-                        </div>
-                    ) : (
-                        <>
-                            {providers &&
-                                Object.values(providers).map((provider) => (
-                                    <button
-                                        type="button"
-                                        key={provider?.name}
-                                        onClick={() => {
-                                            signIn(provider?.id);
-                                        }}
-                                        className="black_btn gap-2"
-                                    >
-                                        <Image
-                                            src="/assets/icons/google.svg"
-                                            height={20}
-                                            width={20}
-                                            alt="googleLogo"
-                                        ></Image>
-                                        Sign In
-                                    </button>
-                                ))}
-                        </>
-                    )}
-                </div>
 
                 {/* Mobile Nav */}
-                <div className="sm:hidden flex relative">
+                <div className="flex relative ">
                     {status !== "loading" && session?.user ? (
-                        <div className="flex">
+                        <div className="flex gap-6">
+                            <div className=" hidden sm:flex gap-6">
+                                <Link
+                                    href="/create-prompt"
+                                    className="black_btn"
+                                >
+                                    Post Prompt
+                                </Link>
+                                <Link
+                                    href="/create-prompt"
+                                    className="outline_btn"
+                                >
+                                    My Profile
+                                </Link>
+                            </div>
                             <Image
                                 src={session?.user.image || "/assets/icons/profile.svg"}
                                 width={45}
@@ -112,21 +74,21 @@ const Nav = () => {
                                 <div className="dropdown">
                                     <Link
                                         href="/profile"
-                                        className="dropdown_link"
+                                        className="dropdown_link w-full outline_btn"
                                         onClick={reverseDropDown}
                                     >
                                         My Profile
                                     </Link>
                                     <Link
                                         href="/create-prompt"
-                                        className="dropdown_link"
+                                        className="dropdown_link mt-1 w-full outline_btn"
                                         onClick={reverseDropDown}
                                     >
                                         Post Prompt
                                     </Link>
                                     <button
                                         type="button"
-                                        className="mt-5 w-full black_btn"
+                                        className="mt-1 w-full black_btn"
                                         onClick={() => {
                                             setIsDropDownOpen(false);
                                             signOut();
