@@ -33,17 +33,17 @@ const Feed = () => {
     // on first load, get all the posts
     useEffect(() => {
         const fetchPosts = async () => {
-            try {
-                while (true) {
+            while (true) {
+                try {
                     await fetch("/api/prompt");
                     const response = await fetch("/api/prompt");
                     const responsePosts = await response.json();
                     setAllPosts(responsePosts);
                     setPosts(responsePosts);
                     break;
+                } catch (error) {
+                    console.log(error);
                 }
-            } catch (error) {
-                console.log(error);
             }
         };
 
