@@ -10,7 +10,7 @@ const Home = () => {
                     <span className="purple_gradient"> Stable Diffusion Prompts</span>
                 </h1>
                 <p className="desc text-center">
-                    Find and share prompts for stable diffusion to create your own AI generated
+                    Login with Google to find and share prompts for stable diffusion to create your own AI generated
                     images.
                 </p>
                 <Feed></Feed>
