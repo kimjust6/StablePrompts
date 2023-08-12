@@ -56,7 +56,7 @@ const Nav = () => {
                                     Post Prompt
                                 </Link>
                                 <Link
-                                    href="/create-prompt"
+                                    href="/profile"
                                     className="outline_btn"
                                 >
                                     My Profile
@@ -71,7 +71,7 @@ const Nav = () => {
                                 onClick={reverseDropDown}
                             ></Image>
                             {isDropDownOpen && (
-                                <div className="dropdown">
+                                <div className="dropdown ">
                                     <Link
                                         href="/profile"
                                         className="dropdown_link w-full outline_btn"
