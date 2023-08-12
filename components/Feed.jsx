@@ -6,7 +6,7 @@ import Loading from "./Loading";
 
 const Feed = () => {
     const [searchText, setSearchText] = useState("");
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState(null);
     const [allPosts, setAllPosts] = useState(null);
     const searchOnChange = (e) => {
         const text = (e?.target?.value ?? e).toLowerCase();
@@ -21,7 +21,9 @@ const Feed = () => {
                 (p) =>
                     p.prompt.toLowerCase().includes(text) ||
                     p.tag.toLowerCase().includes(text) ||
-                    p.creator.email.toLowerCase().includes(text)
+                    p.creator.email.toLowerCase().includes(text) ||
+                    p.fName.toLowerCase().includes(text) ||
+                    p.lName.toLowerCase().includes(text)
             );
 
             setPosts(filteredPosts);
@@ -31,12 +33,22 @@ const Feed = () => {
     // on first load, get all the posts
     useEffect(() => {
         const fetchPosts = async () => {
-            // await fetch("/api/prompt");
-            await fetch("/api/prompt");
-            const response = await fetch("/api/prompt");
-            const responsePosts = await response.json();
-            setPosts(responsePosts);
-            setAllPosts(responsePosts);
+            try {
+                await fetch("/api/prompt");
+                const response = await fetch("/api/prompt");
+                const responsePosts = await response.json();
+                setAllPosts(responsePosts);
+                setPosts(responsePosts);
+            } catch (error) {
+                try {
+                    const response = await fetch("/api/prompt");
+                    const responsePosts = await response.json();
+                    setAllPosts(responsePosts);
+                    setPosts(responsePosts);
+                } catch (error2) {
+                    console.log(error2);
+                }
+            }
         };
 
         fetchPosts();
@@ -52,14 +64,14 @@ const Feed = () => {
             >
                 <input
                     type="text"
-                    placeholder="Search for a tag or email"
+                    placeholder="Search for a tag or prompt"
                     value={searchText}
                     onChange={searchOnChange}
                     required
                     className="search_input peer"
                 ></input>
             </form>
-            {allPosts === null ? (
+            {posts === null ? (
                 <Loading></Loading>
             ) : (
                 <PromptCardList
