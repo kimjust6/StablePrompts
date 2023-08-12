@@ -56,7 +56,7 @@ const Nav = () => {
                                     Post Prompt
                                 </Link>
                                 <Link
-                                    href="/create-prompt"
+                                    href="/profile"
                                     className="outline_btn"
                                 >
                                     My Profile
