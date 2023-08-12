@@ -4,12 +4,11 @@ import Prompt from "@models/prompt";
 export const GET = async (req) => {
     try {
         await connectToDB();
-        await connectToDB();
         const prompts = await Prompt.find({}).populate("creator");
 
         return new Response(JSON.stringify(prompts), { status: 200 });
     } catch (error) {
         console.log(error);
-        return new Response("Error: Failed to retrieve prompts.", { status: 500 });
+        return new Response(error, { status: 500 });
     }
 };

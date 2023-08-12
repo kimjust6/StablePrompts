@@ -20,5 +20,5 @@ const UserSchema = new Schema({
 });
 
 // check if models.User exists, || if not create model User with UserSchema
-const User = models.User || model("User", UserSchema);
+const User = models.user2 || model("user2", UserSchema);
 export default User;
