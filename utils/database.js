@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 
-// variable to check db connection
-let isDBConnected = false;
-
 export const connectToDB = async () => {
     mongoose.set("strictQuery", true);
+    // check if mongodb url is set
+    if (!process.env.MONGODB_URI) {
+        return new Error("MongoDB URI is not set.");
+    }
 
-    if (isDBConnected) {
+    if (mongoose.connections[0].readyState) {
         console.log("MongoDB is already connected.");
     } else {
         // connect to mongodb
@@ -17,11 +18,10 @@ export const connectToDB = async () => {
                 useUnifiedTopology: true,
             });
 
-
-            isDBConnected = true;
             console.log("Established connection to MongoDB");
         } catch (error) {
             console.log(error);
+            return error;
         }
     }
 };
