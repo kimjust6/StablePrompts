@@ -34,20 +34,12 @@ const Feed = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                await fetch("/api/prompt");
                 const response = await fetch("/api/prompt");
                 const responsePosts = await response.json();
                 setAllPosts(responsePosts);
                 setPosts(responsePosts);
             } catch (error) {
-                try {
-                    const response = await fetch("/api/prompt");
-                    const responsePosts = await response.json();
-                    setAllPosts(responsePosts);
-                    setPosts(responsePosts);
-                } catch (error2) {
-                    console.log(error2);
-                }
+                console.log(error);
             }
         };
 
