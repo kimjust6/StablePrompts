@@ -12,7 +12,6 @@ const Feed = () => {
     const searchOnChange = (e) => {
         const text = (e?.target?.value ?? e).toLowerCase();
         setSearchText(text);
-        console.log(text);
         // show all posts if there is no text
         if (text === "") {
             setPosts(allPosts);
