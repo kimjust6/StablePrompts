@@ -8,10 +8,11 @@ const Feed = () => {
     const [searchText, setSearchText] = useState("");
     const [posts, setPosts] = useState(null);
     const [allPosts, setAllPosts] = useState(null);
+
     const searchOnChange = (e) => {
         const text = (e?.target?.value ?? e).toLowerCase();
         setSearchText(text);
-
+        console.log(text);
         // show all posts if there is no text
         if (text === "") {
             setPosts(allPosts);
@@ -22,8 +23,8 @@ const Feed = () => {
                     p.prompt.toLowerCase().includes(text) ||
                     p.tag.toLowerCase().includes(text) ||
                     p.creator.email.toLowerCase().includes(text) ||
-                    p.fName.toLowerCase().includes(text) ||
-                    p.lName.toLowerCase().includes(text)
+                    p.creator.fName.toLowerCase().includes(text) ||
+                    p.creator.lName.toLowerCase().includes(text)
             );
 
             setPosts(filteredPosts);
