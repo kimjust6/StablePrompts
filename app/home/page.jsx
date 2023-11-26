@@ -6,9 +6,9 @@ const Home = () => {
       <h1 className="head_text text-center">
         Find and Share
         <br className="max-md:hidden" />
-        <span className="purple_gradient"> Stable Diffusion Prompts</span>
+        <span className="purple_gradient "> Stable Diffusion Prompts</span>
       </h1>
-      <p className="desc text-center ">
+      <p className="desc text-center">
         Login with Google to find and share prompts for stable diffusion. Share
         your AI generated images!
       </p>

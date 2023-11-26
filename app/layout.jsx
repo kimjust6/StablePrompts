@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Provider from "@/components/Provider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import "@/styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
@@ -11,16 +12,18 @@ const RootLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
-        <Provider>
-          <div className="main">
-            <div className="gradient"></div>
-          </div>
-          <main className="app">
-            <Nav />
-            {children}
-            <Analytics />
-          </main>
-        </Provider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Provider>
+            <div className="main">
+              <div className="gradient"></div>
+            </div>
+            <main className="app">
+              <Nav />
+              {children}
+              <Analytics />
+            </main>
+          </Provider>
+        </ThemeProvider>
       </body>
     </html>
   );
