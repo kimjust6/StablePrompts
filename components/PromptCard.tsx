@@ -45,10 +45,10 @@ const PromptCard = ({
             height={40}
             className="rounded-full object-contain"></Image>
           <div className="rounded-full object-contain">
-            <h3 className="font-satoshi font-semibold text-gray-900">
+            <h3 className="font-satoshi font-semibold ">
               {post?.creator?.fName} {post?.creator?.lName}
             </h3>
-            <p className="font-inter text-sm text-gray-500">
+            <p className="font-inter text-sm text-muted-foreground">
               {post?.creator?.email}
             </p>
           </div>
@@ -70,7 +70,7 @@ const PromptCard = ({
             }></Image>
         </div>
       </div>
-      <p className="my-4 font-satoshi text-md text-gray-700">{post.prompt}</p>
+      <p className="my-4 font-satoshi text-md text-foreground">{post.prompt}</p>
       <p
         className="font-inter text-md text-violet-400 hover:text-violet-600 cursor-pointer"
         onClick={() => {

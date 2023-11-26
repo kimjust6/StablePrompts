@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import Form from "@/components/Form";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Form from "@/components/Form";
+import { useState } from "react";
 
 const CreatePrompt = () => {
   const router = useRouter();
@@ -52,7 +52,8 @@ const CreatePrompt = () => {
       post={post}
       setPost={setPost}
       submitting={submitting}
-      handleSubmit={handleCreatePrompt}></Form>
+      handleSubmit={handleCreatePrompt}
+    />
   );
 };
 

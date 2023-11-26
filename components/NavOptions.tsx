@@ -9,15 +9,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { ChevronDown, Home, LogOut, Plus, User2 } from "lucide-react";
+import {
+  ChevronDown,
+  Home,
+  LogOut,
+  MoonStar,
+  Plus,
+  SunIcon,
+  CircleUserRound,
+  PlusCircle,
+} from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ThemeToggle } from "./themeToggle";
 
 const NavOptions = () => {
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -54,7 +63,7 @@ const NavOptions = () => {
         <DropdownMenuTrigger asChild>
           <Button variant="outline">
             {!session.user.image ? (
-              <User2 strokeWidth={1.5} className="h-5 w-5 -ml-1" />
+              <CircleUserRound strokeWidth={1.5} className="h-5 w-5 -ml-1" />
             ) : (
               <Image
                 src={session.user.image}
@@ -86,8 +95,20 @@ const NavOptions = () => {
               onClick={() => {
                 router.push("/profile");
               }}>
-              <User2 strokeWidth={1.5} className="h-4 w-4" />
+              <CircleUserRound strokeWidth={1.5} className="h-4 w-4" />
               <span className="mx-3">Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => {
+                setTheme(theme === "dark" ? "light" : "dark");
+              }}>
+              {theme === "dark" ? (
+                <MoonStar strokeWidth={1.5} className="h-4 w-4" />
+              ) : (
+                <SunIcon strokeWidth={1.5} className="h-4 w-4" />
+              )}
+              <span className="mx-3">Toggle Theme</span>
             </DropdownMenuItem>
 
             <DropdownMenuItem
@@ -95,7 +116,7 @@ const NavOptions = () => {
               onClick={() => {
                 router.push("/create-prompt");
               }}>
-              <Plus strokeWidth={1.5} className="h-4 w-4" />
+              <PlusCircle strokeWidth={1.5} className="h-4 w-4" />
               <span className="mx-3">New Prompt</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -114,9 +135,7 @@ const NavOptions = () => {
   return (
     <div className="flex items-center gap-2">
       {/* <SearchBar /> */}
-      <TooltipProvider>
-        <ThemeToggle />
-      </TooltipProvider>
+
       {session?.user ? dropdownMenu() : signInButton()}
     </div>
   );
