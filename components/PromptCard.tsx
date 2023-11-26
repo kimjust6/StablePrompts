@@ -6,11 +6,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface PromptCardProps {
-  key: String;
+  key?: String;
   post: any;
-  handleTagClick: any;
-  handleDelete: any;
-  handleEdit: any;
+  handleTagClick?: any;
+  handleDelete?: any;
+  handleEdit?: any;
 }
 
 const PromptCard = ({
@@ -82,7 +82,6 @@ const PromptCard = ({
       {/* check if the user is viewing own profile */}
       {session?.user.id === post?.creator?._id && pathName === "/profile" && (
         <div className="mt-3 flex justify-center items-center gap-6 border-t border-gray-300">
-          {session?.user?.id}
           <p
             className="mt-3 font-inter  text-sm cursor-pointer hover:text-violet-700 text-violet-500"
             onClick={() => {
