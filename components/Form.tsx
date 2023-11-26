@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
   return (
@@ -52,12 +53,12 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             className="text-gray-500 hover:text-gray-800 hover:bg-gray-200 bg-gray-100 text-lg px-2 py-1.5 rounded-lg outline outline-1">
             Cancel
           </Link>
-          <button
+          <Button
             type="submit"
             disabled={submitting}
             className="px-5 py-1.5 text-lg hover:bg-violet-800 bg-violet-600 text-white rounded-lg font-semibold">
             {submitting ? "Submit..." : "Submit"}
-          </button>
+          </Button>
         </div>
       </form>
     </section>

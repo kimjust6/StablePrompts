@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { getProviders, signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const Nav = () => {
   // get session info
@@ -43,12 +44,20 @@ const Nav = () => {
           {status !== "loading" && session?.user ? (
             <div className="flex gap-6">
               <div className=" hidden sm:flex gap-6">
-                <Link href="/create-prompt" className="black_btn">
+                <Button
+                  variant="default"
+                  onClick={() => {
+                    router.push("/create-prompt");
+                  }}>
                   Post Prompt
-                </Link>
-                <Link href="/profile" className="outline_btn">
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    router.push("/profile");
+                  }}>
                   My Profile
-                </Link>
+                </Button>
               </div>
               <Image
                 src={session?.user.image || "/assets/icons/profile.svg"}
@@ -59,27 +68,32 @@ const Nav = () => {
                 onClick={reverseDropDown}></Image>
               {isDropDownOpen && (
                 <div className="dropdown ">
-                  <Link
-                    href="/profile"
+                  <Button
                     className="dropdown_link w-full outline_btn"
-                    onClick={reverseDropDown}>
+                    onClick={() => {
+                      router.push("/profile");
+                      reverseDropDown();
+                    }}>
                     My Profile
-                  </Link>
-                  <Link
-                    href="/create-prompt"
+                  </Button>
+                  <Button
                     className="dropdown_link mt-1 w-full outline_btn"
-                    onClick={reverseDropDown}>
+                    onClick={() => {
+                      router.push("/create-prompt");
+                      reverseDropDown();
+                    }}>
                     Post Prompt
-                  </Link>
-                  <button
+                  </Button>
+                  <Button
                     type="button"
-                    className="mt-1 w-full black_btn"
+                    variant="default"
+                    className="mt-1 "
                     onClick={() => {
                       setIsDropDownOpen(false);
                       signOut();
                     }}>
                     Sign Out
-                  </button>
+                  </Button>
                 </div>
               )}
             </div>
@@ -87,7 +101,7 @@ const Nav = () => {
             <>
               {providers &&
                 Object.values(providers).map((provider: any) => (
-                  <button
+                  <Button
                     type="button"
                     key={provider?.name}
                     onClick={() => {
@@ -100,7 +114,7 @@ const Nav = () => {
                       height={20}
                       width={20}></Image>
                     Sign In
-                  </button>
+                  </Button>
                 ))}
             </>
           )}
