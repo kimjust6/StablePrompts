@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { signIn, signOut, useSession, getProviders } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import Link from 'next/link';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const Nav = () => {
     // get session info
@@ -28,11 +28,11 @@ const Nav = () => {
     }, []);
 
     return (
-        <>
-            <nav className="flex-between w-full mb-16 pt-3" >
+        <div className="w-full flex flex-row justify-between ">
+            <nav className="flex-between w-full mb-16 pt-3">
                 <Link
                     href="/"
-                    className="flex gap-2 flex-center"
+                    className="flex gap-2 items-center justify-center"
                 >
                     <Image
                         src="/assets/images/logo.svg"
@@ -42,11 +42,9 @@ const Nav = () => {
                     ></Image>
                     <p className="logo_text">Stable Prompts</p>
                 </Link>
-
-
                 {/* Mobile Nav */}
                 <div className="flex relative ">
-                    {status !== "loading" && session?.user ? (
+                    {status !== 'loading' && session?.user ? (
                         <div className="flex gap-6">
                             <div className=" hidden sm:flex gap-6">
                                 <Link
@@ -63,7 +61,7 @@ const Nav = () => {
                                 </Link>
                             </div>
                             <Image
-                                src={session?.user.image || "/assets/icons/profile.svg"}
+                                src={session?.user.image || '/assets/icons/profile.svg'}
                                 width={45}
                                 height={45}
                                 className="rounded-full cursor-pointer"
@@ -124,7 +122,7 @@ const Nav = () => {
                     )}
                 </div>
             </nav>
-        </>
+        </div>
     );
 };
 

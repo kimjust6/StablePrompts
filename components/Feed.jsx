@@ -1,11 +1,11 @@
-"use client";
-import { useState, useEffect } from "react";
+'use client';
+import { useState, useEffect } from 'react';
 
-import PromptCardList from "./PromptCardList";
-import Loading from "./Loading";
+import PromptCardList from './PromptCardList';
+import Loading from './Loading';
 
 const Feed = () => {
-    const [searchText, setSearchText] = useState("");
+    const [searchText, setSearchText] = useState('');
     const [posts, setPosts] = useState(null);
     const [allPosts, setAllPosts] = useState(null);
 
@@ -13,7 +13,7 @@ const Feed = () => {
         const text = (e?.target?.value ?? e).toLowerCase();
         setSearchText(text);
         // show all posts if there is no text
-        if (text === "") {
+        if (text === '') {
             setPosts(allPosts);
         } else {
             // check if post includes substring
@@ -34,7 +34,7 @@ const Feed = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch("/api/prompt");
+                const response = await fetch('/api/prompt');
                 const responsePosts = await response.json();
                 setAllPosts(responsePosts);
                 setPosts(responsePosts);
@@ -49,7 +49,7 @@ const Feed = () => {
     return (
         <section className="feed">
             <form
-                className="relative w-full flex-center"
+                className="relative w-full flex items-center justify-center"
                 onSubmit={(e) => {
                     e.preventDefault();
                 }}

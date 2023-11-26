@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export const Root = () => {
     const router = useRouter();
 
     useEffect(() => {
-        router.push("/home");
+        router.push('/home');
     }, []);
     return <></>;
 };

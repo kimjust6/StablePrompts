@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useSession } from "next-auth/react";
-import { usePathname, useRouter } from "next/navigation";
-import Image from "next/image";
+import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { usePathname, useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
-    const [copiedPost, setCopiedPost] = useState("");
+    const [copiedPost, setCopiedPost] = useState('');
     const { data: session } = useSession();
     // get path of url
     const pathName = usePathname();
@@ -18,7 +18,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
         navigator.clipboard.writeText(post.prompt);
 
         // after three seconds, reset the state of copiedPost
-        setTimeout(() => setCopiedPost(""), 2000);
+        setTimeout(() => setCopiedPost(''), 2000);
     };
     return (
         <div className="prompt_card">
@@ -51,8 +51,8 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
                         alt="copy icon"
                         src={
                             copiedPost === post.prompt
-                                ? "/assets/icons/tick.svg"
-                                : "/assets/icons/copy.svg"
+                                ? '/assets/icons/tick.svg'
+                                : '/assets/icons/copy.svg'
                         }
                     ></Image>
                 </div>
@@ -68,10 +68,10 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
                 {post.tag}
             </p>
             {/* check if the user is viewing own profile */}
-            {session?.user.id === post?.creator?._id && pathName === "/profile" && (
-                <div className="mt-3 flex-center gap-6 border-t border-gray-300">
+            {session?.user.id === post?.creator?._id && pathName === '/profile' && (
+                <div className="mt-3 flex justify-center items-center gap-6 border-t border-gray-300">
                     <p
-                        className="mt-3 font-inter text-sm text-sm cursor-pointer hover:text-violet-700 text-violet-500"
+                        className="mt-3 font-inter  text-sm cursor-pointer hover:text-violet-700 text-violet-500"
                         onClick={() => {
                             handleEdit(post);
                         }}
@@ -79,7 +79,7 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
                         Edit
                     </p>
                     <p
-                        className="mt-3 font-inter text-sm text-sm cursor-pointer hover:text-red-700 text-red-500"
+                        className="mt-3 font-inter text-sm cursor-pointer hover:text-red-700 text-red-500"
                         onClick={() => {
                             handleDelete(post);
                         }}
