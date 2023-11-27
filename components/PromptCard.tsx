@@ -84,7 +84,7 @@ const PromptCard = ({
       </CardContent>
       <CardFooter className="flex flex-col w-full items-start">
         <p
-          className="font-inter text-md text-violet-400 hover:text-violet-600 cursor-pointer -mt-4"
+          className="font-inter text-md text-violet-400 hover:text-violet-600 cursor-pointer -mt-4 -mb-2"
           onClick={() => {
             // check if handletagclick exists, and call it if it does
             handleTagClick && handleTagClick(post.tag);
@@ -93,11 +93,11 @@ const PromptCard = ({
         </p>
         {session?.user.id === post?.creator?._id && pathName === "/profile" && (
           <div className="w-full ">
-            <Separator className="mt-4 mb-2" />
+            <Separator className="mt-5 mb-2 " />
             <div className="flex w-full justify-center gap-10">
               <Button
                 variant="link"
-                className="text-card-foreground/90 -mb-3 "
+                className="text-card-foreground/90 -mb-5 -mt-1"
                 onClick={() => {
                   handleEdit(post);
                 }}>
@@ -105,7 +105,7 @@ const PromptCard = ({
               </Button>
               <Button
                 variant="link"
-                className="text-destructive -mb-3 "
+                className="text-destructive -mb-5 -mt-1 "
                 onClick={() => {
                   handleDelete(post);
                 }}>

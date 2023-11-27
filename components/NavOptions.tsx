@@ -23,6 +23,8 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { ThemeToggle } from "./themeToggle";
+import { TooltipProvider } from "./ui/tooltip";
 
 const NavOptions = () => {
   const router = useRouter();
@@ -35,20 +37,27 @@ const NavOptions = () => {
 
   const signInButton = () => {
     return (
-      <Button
-        variant="outline"
-        onClick={() => {
-          signIn("google");
-        }}>
-        <Image
-          src="/assets/icons/google.svg"
-          alt="googleLogo"
-          height={20}
-          width={20}
-        />
+      <>
+        {!session && (
+          <TooltipProvider>
+            <ThemeToggle />
+          </TooltipProvider>
+        )}
 
-        <span className="mx-2">Sign In</span>
-      </Button>
+        <Button
+          variant="outline"
+          onClick={() => {
+            signIn("google");
+          }}>
+          <Image
+            src="/assets/icons/google.svg"
+            alt="googleLogo"
+            height={20}
+            width={20}
+          />
+          <span className="mx-2">Sign In</span>
+        </Button>
+      </>
     );
   };
 

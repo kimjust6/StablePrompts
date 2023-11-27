@@ -16,7 +16,7 @@ export function ThemeToggle() {
   return (
     <Button
       variant="ghost"
-      className="w-9 px-0"
+      className="w-9 px-0 hover:bg-transparent hover:border-input text-violet-600 dark:text-yellow-400"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
       <Tooltip delayDuration={0}>
         <TooltipTrigger asChild>

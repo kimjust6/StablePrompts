@@ -3,8 +3,6 @@ import Link from "next/link";
 import NavOptions from "./NavOptions";
 
 const Nav = () => {
-  // get session info
-
   return (
     <section className="w-full flex flex-row justify-between  items-center py-2">
       <nav className="flex-between w-full ">
