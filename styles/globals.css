@@ -4,82 +4,72 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: #152331;
+    --background: 223 97% 98.28%;
+    --foreground: 223 4% 0.56%;
 
-    --background-glass: 0 0% 100% 0.9;
-    --foreground-glass: 0 0% 3.9% 0.9;
+    --muted: 223 4% 91.4%;
+    --muted-foreground: 223 2% 41.4%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --popover: 223 58% 91.4%;
+    --popover-foreground: 223 4% 0.7000000000000001%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
+    --card: 223 58% 91.4%;
+    --card-foreground: 223 4% 0.7000000000000001%;
 
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
+    --border: 223 9% 89.56%;
+    --input: 223 9% 89.56%;
 
-    --primary-hover: 0 0% 9%;
-    --primary-foreground-hover: 0 0% 10%;
+    --primary: 223 40% 14%;
+    --primary-foreground: 223 0.8% 91.4%;
 
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary: 223 2% 95.7%;
+    --secondary-foreground: 223 3.4000000000000004% 11.4%;
 
-    --secondary-hover: 0 0% 96.1%;
-    --secondary-foreground-hover: 0 0% 9%;
-
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --accent: 223 2% 95.7%;
+    --accent-foreground: 223 3.4000000000000004% 11.4%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --ring: 223 40% 14%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
+    /* CSS: .bg-gradient { background: var(--gradient) } */
+    --gradient: #acb6e5;
 
-    --background-glass: 0 0% 3.9% 0.95;
-    --foreground-glass: 0 0% 98% 0.95;
+    --background: 244 33.800000000000004% 6.32%;
+    --foreground: 244 5.2% 98.95%;
 
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --muted: 244 26% 23.700000000000003%;
+    --muted-foreground: 244 5.2% 57.9%;
 
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 244 54.6% 10.27%;
+    --popover-foreground: 244 5.2% 98.95%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
+    --card: 244 54.6% 10.27%;
+    --card-foreground: 244 5.2% 98.95%;
 
-    --primary-hover: 0 0% 90%;
-    --primary-foreground-hover: 120, 2%, 20%, 0.85;
+    --border: 244 26% 23.700000000000003%;
+    --input: 244 26% 23.700000000000003%;
 
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
+    --primary: 244 52% 79%;
+    --primary-foreground: 244 5.2% 7.9%;
 
-    --secondary-hover: 120, 2%, 20%, 0.95;
-    --secondary-foreground-hover: 46, 100%, 97%, 0.95;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
+    --secondary: 244 26% 23.700000000000003%;
+    --secondary-foreground: 244 5.2% 98.95%;
 
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 244 26% 23.700000000000003%;
+    --accent-foreground: 244 5.2% 98.95%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 244 5.2% 98.95%;
 
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+    --ring: 244 52% 79%;
   }
 }
 
@@ -88,7 +78,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground h-screen bg-gradient-to-r from-blue-200 to-cyan-100 dark:from-slate-800 dark:to-stone-800;
+    @apply bg-background text-foreground h-screen bg-gradient-to-r from-blue-200 to-cyan-100 dark:from-background dark:to-background;
   }
 }
 
@@ -157,7 +147,7 @@ body {
 }
 
 .purple_gradient {
-  @apply bg-gradient-to-r from-purple-500 via-blue-600 to-purple-500 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-purple-500 via-blue-600 to-purple-500 bg-clip-text text-transparent dark:from-purple-700 dark:via-blue-500/60 dark:to-purple-700;
 }
 
 .desc {
@@ -173,7 +163,7 @@ body {
 }
 
 .glassmorphism {
-  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
+  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5 dark:border-gray-500 dark:bg-white;
 }
 
 .prompt_layout {
@@ -205,7 +195,7 @@ body {
 
 /* PromptCard Component */
 .prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 dark:bg-gray-700/20 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
 }
 
 .flex-center {

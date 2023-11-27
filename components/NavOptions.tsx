@@ -104,9 +104,9 @@ const NavOptions = () => {
                 setTheme(theme === "dark" ? "light" : "dark");
               }}>
               {theme === "dark" ? (
-                <MoonStar strokeWidth={1.5} className="h-4 w-4" />
-              ) : (
                 <SunIcon strokeWidth={1.5} className="h-4 w-4" />
+              ) : (
+                <MoonStar strokeWidth={1.5} className="h-4 w-4" />
               )}
               <span className="mx-3">Toggle Theme</span>
             </DropdownMenuItem>
