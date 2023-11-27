@@ -110,7 +110,7 @@ const PromptCard = ({
               </Button>
               <Button
                 variant="link"
-                className="text-destructive -mb-5 -mt-1 "
+                className="text-destructive dark:text-red-500 -mb-5 -mt-1 "
                 onClick={() => {
                   handleDelete(post);
                 }}>
