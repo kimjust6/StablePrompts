@@ -1,203 +1,148 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    /* CSS: .bg-gradient { background: var(--gradient) } */
-    --gradient: #16222a;
-    --background: 217 96.55% 98.26%;
-    --foreground: 217 3.1% 0.52%;
-
-    --muted: 217 3.1% 91.3%;
-    --muted-foreground: 217 1.55% 41.3%;
-
-    --popover: 217 96.55% 98.26%;
-    --popover-foreground: 217 3.1% 0.65%;
-
-    --card: 217 65.2% 91.3%;
-    --card-foreground: 217 3.1% 0.65%;
-
-    --border: 252 95% 85%;
-    --input: 252 95% 85%;
-
-    --primary: 217 31% 13%;
-    --primary-foreground: 217 0.62% 91.3%;
-
-    --secondary: 217 1.55% 95.65%;
-    --secondary-foreground: 217 2.86% 11.3%;
-
-    --accent: 251 95% 92%;
-    --accent-foreground: 217 2.86% 11.3%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --ring: 217 31% 13%;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    /* CSS: .bg-gradient { background: var(--gradient) } */
-    --gradient: #acb6e5;
-
-    --background: 244 33.800000000000004% 6.32%;
-    --foreground: 244 5.2% 98.95%;
-
-    --muted: 244 26% 23.700000000000003%;
-    --muted-foreground: 244 5.2% 57.9%;
-
-    --popover: 244 54.6% 10.27%;
-    --popover-foreground: 244 5.2% 98.95%;
-
-    --card: 244 54.6% 10.27%;
-    --card-foreground: 244 5.2% 98.95%;
-
-    --border: 252 95% 85%;
-    --input: 252 95% 85%;
-
-    --primary: 244 52% 79%;
-    --primary-foreground: 244 5.2% 7.9%;
-
-    --secondary: 244 26% 23.700000000000003%;
-    --secondary-foreground: 244 5.2% 98.95%;
-
-    --accent: 244 26% 23.700000000000003%;
-    --accent-foreground: 244 5.2% 98.95%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 244 5.2% 98.95%;
-
-    --ring: 244 52% 79%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground h-screen bg-gradient-to-r from-violet-100 to-blue-300 dark:from-background dark:to-background;
-  }
-}
+/* 
+  Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
+*/
 
 .main {
-  width: 100vw;
-  min-height: 100vh;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  padding: 120px 24px 160px 24px;
-  pointer-events: none;
+    width: 100vw;
+    min-height: 100vh;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    padding: 120px 24px 160px 24px;
+    pointer-events: none;
 }
+
 
 .gradient,
 body {
-  /* background: linear-gradient(-70deg, #a8c9c1, #e6ecf8, #caf1ff); */
-  background-size: 200% 200%;
-  animation: gradient 80s ease infinite;
+    background: linear-gradient(-70deg,  #a8c9c1, #e6ecf8, #caf1ff);
+    background-size: 400% 400%;
+    animation: gradient 60s ease infinite;
+    height: 100vh;
 }
 
 @keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 @media screen and (max-width: 640px) {
-  .main {
-    padding: 0;
-  }
+    .main {
+        padding: 0;
+    }
 }
 
 /* Tailwind Styles */
+
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+    @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+}
+
+.black_btn {
+    @apply rounded-lg border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
+}
+
+.outline_btn {
+    @apply rounded-lg border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
 }
 
 .head_text {
-  @apply mt-5 text-5xl font-extrabold leading-[1.15]  sm:text-6xl;
+    @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
 }
 
 .orange_gradient {
-  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
 }
 
 .green_gradient {
-  @apply bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent;
 }
 
 .blue_gradient {
-  @apply bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent;
 }
 
 .purple_gradient {
-  @apply bg-gradient-to-r from-purple-500 via-blue-600 to-purple-500 bg-clip-text text-transparent dark:from-purple-700 dark:via-blue-500/60 dark:to-purple-700;
+    @apply bg-gradient-to-r from-purple-500 via-blue-600 to-purple-500 bg-clip-text text-transparent;
 }
 
 .desc {
-  @apply mt-5 text-lg text-muted-foreground sm:text-xl max-w-2xl;
+    @apply mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl;
 }
 
 .search_input {
-  @apply block w-full rounded-sm border  py-2.5 pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+    @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
 }
 
 .copy_btn {
-  @apply h-6 w-6 p-1 rounded-lg bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
+    @apply w-7 h-7 rounded-lg bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
 }
 
 .glassmorphism {
-  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5 dark:border-gray-500 dark:bg-gray-700/20;
+    @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
 }
 
 .prompt_layout {
-  @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
+    @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
 }
 
 /* Feed Component */
 .feed {
-  @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+    @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
 }
 
 /* Form Component */
 .form_textarea {
-  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-foreground outline-0;
+    @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
 }
 
 .form_input {
-  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-foreground outline-0;
+    @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
 }
 
 /* Nav Component */
 .logo_text {
-  @apply max-sm:hidden font-semibold text-lg tracking-wide;
+    @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
+}
+
+.dropdown {
+    @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-gray-100 min-w-[210px] flex flex-col gap-2 justify-end items-end;
+}
+
+.dropdown_link {
+    @apply text-sm font-inter text-gray-700 hover:text-gray-500 font-medium;
 }
 
 /* PromptCard Component */
 .prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-violet-200 dark:border-violet-300 dark:bg-gray-700/20 bg-white/20 bg-clip-padding backdrop-blur-lg backdrop-filter sm:min-w-[300px] md:w-[360px] w-full h-fit;
+    @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
 }
 
 .flex-center {
-  @apply flex justify-center items-center;
+    @apply flex justify-center items-center;
 }
 
 .flex-start {
-  @apply flex justify-start items-start;
+    @apply flex justify-start items-start;
 }
 
 .flex-end {
-  @apply flex justify-end items-center;
+    @apply flex justify-end items-center;
 }
 
 .flex-between {
-  @apply flex justify-between items-center;
+    @apply flex justify-between items-center;
 }
