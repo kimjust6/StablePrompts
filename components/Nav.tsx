@@ -13,7 +13,8 @@ const Nav = () => {
             src="/assets/images/logo.svg"
             width={45}
             height={45}
-            alt="logo"></Image>
+            alt="logo"
+          />
           <p className="logo_text">Stable Prompts</p>
         </Link>
         <NavOptions />

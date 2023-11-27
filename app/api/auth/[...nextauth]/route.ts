@@ -22,7 +22,6 @@ const handler = NextAuth({
     },
 
     async signIn(userInfo: any) {
-      console.log({ userInfo });
       try {
         await connectToDB();
 

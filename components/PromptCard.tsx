@@ -4,6 +4,17 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Copy, Check } from "lucide-react";
+import { Button } from "./ui/button";
+import { Separator } from "./ui/separator";
 
 interface PromptCardProps {
   key?: String;
@@ -35,70 +46,76 @@ const PromptCard = ({
   };
 
   return (
-    <div className="prompt_card">
-      <div className="flex justify-between items-start gap-5">
-        <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer">
-          <Image
-            src={post?.creator?.image}
-            alt="userImage"
-            width={40}
-            height={40}
-            className="rounded-full object-contain"></Image>
-          <div className="rounded-full object-contain">
-            <h3 className="font-satoshi font-semibold ">
-              {post?.creator?.fName} {post?.creator?.lName}
-            </h3>
-            <p className="font-inter text-sm text-muted-foreground">
-              {post?.creator?.email}
-            </p>
+    <Card className="prompt_card">
+      <CardHeader>
+        <CardTitle className="flex justify-between">
+          <div className="flex w-full items-center gap-4">
+            <Image
+              src={post?.creator?.image}
+              alt="userImage"
+              width={40}
+              height={40}
+              className="rounded-full object-contain"
+            />
+            <div>
+              <h3 className="font-semibold ">
+                {post?.creator?.fName} {post?.creator?.lName}
+              </h3>
+              <p className="font-inter text-sm text-muted-foreground"></p>
+              <CardDescription>{post?.creator?.email}</CardDescription>
+            </div>
           </div>
-        </div>
-        <div
-          className="copy_btn"
+
+          {copiedPost === post.prompt ? (
+            <Check strokeWidth={2} className="copy_btn text-green-600" />
+          ) : (
+            <Copy
+              strokeWidth={2}
+              className="copy_btn text-violet-400 hover:text-violet-600"
+              onClick={() => {
+                handleCopy(post.prompt);
+              }}
+            />
+          )}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="font-satoshi text-md text-foreground">{post.prompt}</p>
+      </CardContent>
+      <CardFooter className="flex flex-col w-full items-start">
+        <p
+          className="font-inter text-md text-violet-400 hover:text-violet-600 cursor-pointer -mt-4"
           onClick={() => {
-            handleCopy(post.prompt);
+            // check if handletagclick exists, and call it if it does
+            handleTagClick && handleTagClick(post.tag);
           }}>
-          <Image
-            width={12}
-            height={12}
-            className="text-violet-400"
-            alt="copy icon"
-            src={
-              copiedPost === post.prompt
-                ? "/assets/icons/tick.svg"
-                : "/assets/icons/copy.svg"
-            }></Image>
-        </div>
-      </div>
-      <p className="my-4 font-satoshi text-md text-foreground">{post.prompt}</p>
-      <p
-        className="font-inter text-md text-violet-400 hover:text-violet-600 cursor-pointer"
-        onClick={() => {
-          // check if handletagclick exists, and call it if it does
-          handleTagClick && handleTagClick(post.tag);
-        }}>
-        {post.tag}
-      </p>
-      {/* check if the user is viewing own profile */}
-      {session?.user.id === post?.creator?._id && pathName === "/profile" && (
-        <div className="mt-3 flex justify-center items-center gap-6 border-t border-gray-300">
-          <p
-            className="mt-3 font-inter  text-sm cursor-pointer hover:text-violet-700 text-violet-500"
-            onClick={() => {
-              handleEdit(post);
-            }}>
-            Edit
-          </p>
-          <p
-            className="mt-3 font-inter text-sm cursor-pointer hover:text-red-700 text-red-500"
-            onClick={() => {
-              handleDelete(post);
-            }}>
-            Delete
-          </p>
-        </div>
-      )}
-    </div>
+          {post.tag}
+        </p>
+        {session?.user.id === post?.creator?._id && pathName === "/profile" && (
+          <div className="w-full ">
+            <Separator className="mt-4 mb-2" />
+            <div className="flex w-full justify-center gap-10">
+              <Button
+                variant="link"
+                className="text-card-foreground/90 -mb-3 "
+                onClick={() => {
+                  handleEdit(post);
+                }}>
+                Edit
+              </Button>
+              <Button
+                variant="link"
+                className="text-destructive -mb-3 "
+                onClick={() => {
+                  handleDelete(post);
+                }}>
+                Delete
+              </Button>
+            </div>
+          </div>
+        )}
+      </CardFooter>
+    </Card>
   );
 };
 

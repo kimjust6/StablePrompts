@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import PromptCardList from "./PromptCardList";
 import Loading from "./Loading";
+import { Input } from "./ui/input";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
@@ -53,13 +54,13 @@ const Feed = () => {
         onSubmit={(e) => {
           e.preventDefault();
         }}>
-        <input
+        <Input
           type="text"
           placeholder="Search for a tag or prompt"
           value={searchText}
           onChange={searchOnChange}
           required
-          className="search_input peer"></input>
+          className="search_input peer"></Input>
       </form>
       {posts === null ? (
         <Loading></Loading>

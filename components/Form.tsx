@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
   return (
@@ -20,33 +23,35 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
 
       <form
         onSubmit={handleSubmit}
-        className="mt-10 w-full flex flex-col gap-7 glassmorphism">
-        <label>
+        className="mt-10 w-full flex flex-col gap-7 ">
+        <Label>
           <span className="font-satoshi font-semibold text-base text-foreground">
             Your Stable Diffusion Prompt
           </span>
-          <textarea
+          <Textarea
             value={post.prompt}
             onChange={(e) => {
               setPost({ ...post, prompt: e.target.value });
             }}
             placeholder="Your prompt goes here..."
             required
-            className="form_textarea"></textarea>
-        </label>
-        <label>
+            className="form_textarea"
+          />
+        </Label>
+        <Label>
           <span className="font-satoshi font-semibold text-base text-foreground">
             Tags
           </span>
-          <input
+          <Input
             value={post.tag}
             onChange={(e) => {
               setPost({ ...post, tag: e.target.value });
             }}
             placeholder="#YourTagGoesHere"
             required
-            className="form_input"></input>
-        </label>
+            className="form_input"
+          />
+        </Label>
         <div className="flex-end mx- mb-5 gap-4">
           <Link href="/">
             <Button type="button" variant="outline" size="lg">
@@ -57,7 +62,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             type="submit"
             variant="outline"
             size="lg"
-            className="bg-violet-600 hover:bg-violet-800 text-background"
+            className="bg-violet-600 hover:bg-violet-800 text-background "
             disabled={submitting}>
             {submitting ? "Submit..." : "Submit"}
           </Button>

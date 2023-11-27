@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-import Profile from "@/components/Profile";
+import Posts from "@/components/Profile";
 import Loading from "@/components/Loading";
 
 const myProfile = () => {
@@ -59,18 +59,19 @@ const myProfile = () => {
   }, [status]);
 
   return status === "loading" || isLoading ? (
-    <Loading></Loading>
+    <Loading />
   ) : (
-    <Profile
+    <Posts
       name="My"
       desc={
         posts?.length
-          ? "Welcome to your profile! Here are your posts."
-          : "Welcome to your profile! Looks like you haven't made any posts. Try posting a new prompt!"
+          ? "Here are your posts."
+          : "Looks like you haven't made any posts. Try posting a new prompt!"
       }
       data={posts}
       handleEdit={handleEdit}
-      handleDelete={handleDelete}></Profile>
+      handleDelete={handleDelete}
+    />
   );
 };
 

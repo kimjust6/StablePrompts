@@ -11,13 +11,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   ChevronDown,
+  CircleUserRound,
   Home,
   LogOut,
   MoonStar,
-  Plus,
-  SunIcon,
-  CircleUserRound,
   PlusCircle,
+  ScrollText,
+  SunIcon,
 } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
@@ -35,7 +35,6 @@ const NavOptions = () => {
 
   const signInButton = () => {
     return (
-      // <Link href="/auth/login">
       <Button
         variant="outline"
         onClick={() => {
@@ -45,11 +44,11 @@ const NavOptions = () => {
           src="/assets/icons/google.svg"
           alt="googleLogo"
           height={20}
-          width={20}></Image>
-        {/* <LogIn strokeWidth={1.5} className="h-5 w-5 -ml-1" /> */}
+          width={20}
+        />
+
         <span className="mx-2">Sign In</span>
       </Button>
-      // </Link>
     );
   };
 
@@ -61,7 +60,7 @@ const NavOptions = () => {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline">
+          <Button variant="outline" className="backdrop-blur opacity-90">
             {!session.user.image ? (
               <CircleUserRound strokeWidth={1.5} className="h-5 w-5 -ml-1" />
             ) : (
@@ -95,8 +94,8 @@ const NavOptions = () => {
               onClick={() => {
                 router.push("/profile");
               }}>
-              <CircleUserRound strokeWidth={1.5} className="h-4 w-4" />
-              <span className="mx-3">Profile</span>
+              <ScrollText strokeWidth={1.5} className="h-4 w-4" />
+              <span className="mx-3">My Posts</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
@@ -134,8 +133,6 @@ const NavOptions = () => {
 
   return (
     <div className="flex items-center gap-2">
-      {/* <SearchBar /> */}
-
       {session?.user ? dropdownMenu() : signInButton()}
     </div>
   );

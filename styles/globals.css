@@ -5,35 +5,35 @@
 @layer base {
   :root {
     /* CSS: .bg-gradient { background: var(--gradient) } */
-    --gradient: #152331;
-    --background: 223 97% 98.28%;
-    --foreground: 223 4% 0.56%;
+    --gradient: #16222a;
+    --background: 217 96.55% 98.26%;
+    --foreground: 217 3.1% 0.52%;
 
-    --muted: 223 4% 91.4%;
-    --muted-foreground: 223 2% 41.4%;
+    --muted: 217 3.1% 91.3%;
+    --muted-foreground: 217 1.55% 41.3%;
 
-    --popover: 223 58% 91.4%;
-    --popover-foreground: 223 4% 0.7000000000000001%;
+    --popover: 217 96.55% 98.26%;
+    --popover-foreground: 217 3.1% 0.65%;
 
-    --card: 223 58% 91.4%;
-    --card-foreground: 223 4% 0.7000000000000001%;
+    --card: 217 65.2% 91.3%;
+    --card-foreground: 217 3.1% 0.65%;
 
-    --border: 223 9% 89.56%;
-    --input: 223 9% 89.56%;
+    --border: 252 95% 85%;
+    --input: 252 95% 85%;
 
-    --primary: 223 40% 14%;
-    --primary-foreground: 223 0.8% 91.4%;
+    --primary: 217 31% 13%;
+    --primary-foreground: 217 0.62% 91.3%;
 
-    --secondary: 223 2% 95.7%;
-    --secondary-foreground: 223 3.4000000000000004% 11.4%;
+    --secondary: 217 1.55% 95.65%;
+    --secondary-foreground: 217 2.86% 11.3%;
 
-    --accent: 223 2% 95.7%;
-    --accent-foreground: 223 3.4000000000000004% 11.4%;
+    --accent: 217 1.55% 95.65%;
+    --accent-foreground: 217 2.86% 11.3%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 223 40% 14%;
+    --ring: 217 31% 13%;
 
     --radius: 0.5rem;
   }
@@ -54,8 +54,8 @@
     --card: 244 54.6% 10.27%;
     --card-foreground: 244 5.2% 98.95%;
 
-    --border: 244 26% 23.700000000000003%;
-    --input: 244 26% 23.700000000000003%;
+    --border: 252 95% 85%;
+    --input: 252 95% 85%;
 
     --primary: 244 52% 79%;
     --primary-foreground: 244 5.2% 7.9%;
@@ -147,11 +147,11 @@ body {
 }
 
 .search_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+  @apply block w-full rounded-sm border  py-2.5 pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
 }
 
 .copy_btn {
-  @apply w-7 h-7 rounded-lg bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
+  @apply h-6 w-6 p-1 rounded-lg bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
 }
 
 .glassmorphism {
@@ -169,11 +169,11 @@ body {
 
 /* Form Component */
 .form_textarea {
-  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-muted outline-0;
+  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-foreground outline-0;
 }
 
 .form_input {
-  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-muted outline-0;
+  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-foreground outline-0;
 }
 
 /* Nav Component */
@@ -183,7 +183,7 @@ body {
 
 /* PromptCard Component */
 .prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 dark:bg-gray-700/20 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  @apply flex-1 break-inside-avoid rounded-lg border border-violet-200 dark:border-violet-300 dark:bg-gray-700/20 bg-white/20 bg-clip-padding backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
 }
 
 .flex-center {
