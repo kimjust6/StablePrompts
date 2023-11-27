@@ -78,7 +78,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground h-screen bg-gradient-to-r from-blue-200 to-cyan-100 dark:from-background dark:to-background;
+    @apply bg-background text-foreground h-screen bg-gradient-to-r from-violet-100 to-blue-300 dark:from-background dark:to-background;
   }
 }
 
@@ -95,7 +95,7 @@
 .gradient,
 body {
   /* background: linear-gradient(-70deg, #a8c9c1, #e6ecf8, #caf1ff); */
-  background-size: 400% 400%;
+  background-size: 200% 200%;
   animation: gradient 80s ease infinite;
 }
 

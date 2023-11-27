@@ -84,7 +84,12 @@ const PromptCard = ({
       </CardContent>
       <CardFooter className="flex flex-col w-full items-start">
         <p
-          className="font-inter text-md text-violet-400 hover:text-violet-600 cursor-pointer -mt-4 -mb-2"
+          className={
+            "font-inter text-md text-violet-500 -mt-4 -mb-2" +
+            (pathName === "/home"
+              ? "hover:text-violet-700 hover:underline cursor-pointer"
+              : "")
+          }
           onClick={() => {
             // check if handletagclick exists, and call it if it does
             handleTagClick && handleTagClick(post.tag);
