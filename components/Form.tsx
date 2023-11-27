@@ -62,7 +62,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             type="submit"
             variant="outline"
             size="lg"
-            className="bg-violet-600 hover:bg-violet-800 text-background "
+            className="bg-violet-600 hover:bg-violet-800 text-white "
             disabled={submitting}>
             {submitting ? "Submit..." : "Submit"}
           </Button>
