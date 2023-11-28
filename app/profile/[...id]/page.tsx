@@ -29,7 +29,6 @@ const userPage = ({ params }) => {
           cache: "no-store",
         });
         const parsedUser = await userResponse.json();
-        console.log({ parsedUser });
         setPosts(responsePosts);
         setFirstName(parsedUser.fName);
         setIsLoading(false);
