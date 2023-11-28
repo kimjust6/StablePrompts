@@ -65,7 +65,7 @@ const myProfile = () => {
       name="My"
       desc={
         posts?.length
-          ? "Here are your posts."
+          ? "Here are your Prompts."
           : "Looks like you haven't made any posts. Try posting a new prompt!"
       }
       data={posts}

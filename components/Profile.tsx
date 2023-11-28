@@ -4,7 +4,7 @@ const Posts = ({ name, desc, data, handleEdit, handleDelete }) => {
   return (
     <section className="w-full ">
       <h1 className="head_text text-left">
-        <span className="purple_gradient">{name} Posts</span>
+        <span className="purple_gradient">{name} Prompts</span>
       </h1>
       <p className="desc text-left">{desc}</p>
 
