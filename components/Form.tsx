@@ -53,7 +53,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             className="form_input"
           />
         </Label>
-        <FileUpload />
+        {/* <FileUpload /> */}
         <div className="flex-end mx- mb-5 gap-4">
           <Link href="/">
             <Button type="button" variant="outline" size="lg">
