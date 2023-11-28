@@ -7,10 +7,21 @@ import { connectToDB } from "@/utils/database";
 const handler = NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
+  session: {
+    strategy: "jwt",
+  },
+  jwt: {
+    // The maximum age of the NextAuth.js issued JWT in seconds.
+    // Defaults to `session.maxAge`.
+    maxAge: 60 * 60 * 24 * 30,
+  },
+  // secret for jwt
+  secret: process.env.NEXTAUTH_SECRET as string,
+
   callbacks: {
     async session({ session }) {
       try {
