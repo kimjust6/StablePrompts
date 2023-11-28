@@ -28,7 +28,9 @@ const UpdatePrompt = () => {
   useEffect(() => {
     const getPromptDetails = async () => {
       // on load, get the post data
-      const response = await fetch(`/api/prompt/${postId}`);
+      const response = await fetch(`/api/prompt/${postId}`, {
+        cache: "no-store",
+      });
       const data = await response.json();
       setPost(data);
       setIsLoading(false);
