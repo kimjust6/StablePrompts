@@ -2,6 +2,7 @@
 
 import Loading from "@/components/Loading";
 import Posts from "@/components/Profile";
+import UserDNE from "@/components/UserDNE";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -10,6 +11,7 @@ const userPage = ({ params }) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [firstName, setFirstName] = useState<string>("");
+  const [noUser, setNoUser] = useState<boolean>(false);
   const router = useRouter();
   const { data: session, status } = useSession();
   useEffect(() => {
@@ -18,23 +20,30 @@ const userPage = ({ params }) => {
     }
 
     const fetchPosts = async () => {
-      const response = await fetch(`/api/user/${params.id}/posts`, {
-        cache: "no-store",
-      });
-      const responsePosts = await response.json();
-      const userResponse = await fetch(`/api/user/${params.id}`, {
-        cache: "no-store",
-      });
-      const parsedUser = await userResponse.json();
-      setPosts(responsePosts);
-      setFirstName(parsedUser.fName);
-      setIsLoading(false);
+      try {
+        const response = await fetch(`/api/user/${params.id}/posts`, {
+          cache: "no-store",
+        });
+        const responsePosts = await response.json();
+        const userResponse = await fetch(`/api/user/${params.id}`, {
+          cache: "no-store",
+        });
+        const parsedUser = await userResponse.json();
+        console.log({ parsedUser });
+        setPosts(responsePosts);
+        setFirstName(parsedUser.fName);
+        setIsLoading(false);
+      } catch (err) {
+        setNoUser(true);
+      }
     };
 
     fetchPosts();
   }, [status]);
 
-  return status === "loading" || isLoading ? (
+  return noUser ? (
+    <UserDNE />
+  ) : status === "loading" || isLoading ? (
     <Loading />
   ) : (
     <Posts
