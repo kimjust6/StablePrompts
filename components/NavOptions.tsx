@@ -104,7 +104,7 @@ const NavOptions = () => {
                 router.push("/profile");
               }}>
               <ScrollText strokeWidth={1.5} className="h-4 w-4" />
-              <span className="mx-3">My Posts</span>
+              <span className="mx-3">My Prompts</span>
             </DropdownMenuItem>
             <DropdownMenuItem
               className="cursor-pointer"
