@@ -10,6 +10,7 @@ import Loading from "@/components/Loading";
 const MyProfile = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(true);
   const router = useRouter();
   const { data: session, status } = useSession({
     required: true,
@@ -45,12 +46,16 @@ const MyProfile = () => {
   // on first load, get all the posts
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`/api/user/${session?.user.id}/posts`, {
-        cache: "no-store",
-      });
-      const responsePosts = await response.json();
-      setPosts(responsePosts);
-      setIsLoading(false);
+      try {
+        const response = await fetch(`/api/user/${session?.user.id}/posts`, {
+          cache: "no-store",
+        });
+        const responsePosts = await response.json();
+        setPosts(responsePosts);
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     // if the user is logged in, fetch the posts

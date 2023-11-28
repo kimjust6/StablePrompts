@@ -11,8 +11,8 @@ const Form = ({
   setPost,
   submitting,
   handleSubmit,
-  isLoading,
-  setIsLoading,
+  isUploading,
+  setIsUploading,
   url,
   setUrl,
 }) => {
@@ -63,7 +63,11 @@ const Form = ({
             className="form_input"
           />
         </Label>
-        <FileUpload setUrl={setUrl} setIsLoading={setIsLoading} />
+        <FileUpload
+          type={type}
+          setUrl={setUrl}
+          setIsUploading={setIsUploading}
+        />
         <div className="flex-end mx- mb-5 gap-4">
           <Link href="/">
             <Button type="button" variant="outline" size="lg">
@@ -75,7 +79,7 @@ const Form = ({
             variant="outline"
             size="lg"
             className="bg-violet-600 hover:bg-violet-500 hover:text-white dark:hover:bg-violet-800 text-white "
-            disabled={submitting || isLoading}>
+            disabled={submitting || isUploading}>
             {submitting ? "Submit..." : "Submit"}
           </Button>
         </div>

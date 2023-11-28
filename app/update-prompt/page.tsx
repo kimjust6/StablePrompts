@@ -23,17 +23,23 @@ const UpdatePrompt = () => {
   const [post, setPost] = useState({ prompt: "", tag: "" });
   const [submitting, setSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isUploading, setIsUploading] = useState(false);
+  const [url, setUrl] = useState("");
 
   // on load, call the api to get post data
   useEffect(() => {
     const getPromptDetails = async () => {
-      // on load, get the post data
-      const response = await fetch(`/api/prompt/${postId}`, {
-        cache: "no-store",
-      });
-      const data = await response.json();
-      setPost(data);
-      setIsLoading(false);
+      try {
+        // on load, get the post data
+        const response = await fetch(`/api/prompt/${postId}`, {
+          cache: "no-store",
+        });
+        const data = await response.json();
+        setPost(data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
     if (postId) {
       getPromptDetails();
@@ -75,9 +81,14 @@ const UpdatePrompt = () => {
       post={post}
       setPost={setPost}
       submitting={submitting}
-      handleSubmit={handleUpdatePrompt}></Form>
+      url={url}
+      setUrl={setUrl}
+      isUploading={isUploading}
+      setIsUploading={setIsUploading}
+      handleSubmit={handleUpdatePrompt}
+    />
   ) : (
-    <Loading></Loading>
+    <Loading />
   );
 };
 
