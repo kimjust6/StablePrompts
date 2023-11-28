@@ -37,6 +37,7 @@ export default function FileUpload({ setUrl, setIsLoading }: FileUploadProps) {
   return (
     <div className="flex gap-5">
       <Input
+        required
         type="file"
         onChange={(e) => {
           setFile(e.target.files?.[0]);
@@ -45,13 +46,6 @@ export default function FileUpload({ setUrl, setIsLoading }: FileUploadProps) {
           }
         }}
       />
-      {/* <Button
-        type="button"
-        onClick={async () => {
-          uploadFile(file);
-        }}>
-        Upload
-      </Button> */}
     </div>
   );
 }

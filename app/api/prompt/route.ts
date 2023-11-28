@@ -9,6 +9,6 @@ export const GET = async (req) => {
     return new Response(JSON.stringify(prompts), { status: 200 });
   } catch (error) {
     console.log(error);
-    return new Response(error, { status: 500 });
+    return new Response("Error: Failed to retrieve prompts.", { status: 500 });
   }
 };

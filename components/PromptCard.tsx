@@ -48,8 +48,8 @@ const PromptCard = ({
   return (
     <Card className="prompt_card">
       <CardHeader>
-        <CardTitle className="flex justify-between">
-          <div className="flex w-full items-center gap-4">
+        <CardTitle className="flex justify-between ">
+          <div className="flex w-full items-center gap-4 ">
             <Image
               src={post?.creator?.image}
               alt="userImage"
@@ -57,7 +57,15 @@ const PromptCard = ({
               height={40}
               className="rounded-full object-contain"
             />
-            <div>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                if (session?.user.id != post?.creator?._id) {
+                  router.push(`/profile/${post?.creator._id}`);
+                } else {
+                  router.push(`/profile`);
+                }
+              }}>
               <h3 className="font-semibold ">
                 {post?.creator?.fName} {post?.creator?.lName}
               </h3>

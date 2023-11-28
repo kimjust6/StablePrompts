@@ -7,10 +7,11 @@ import { useRouter } from "next/navigation";
 import Posts from "@/components/Profile";
 import Loading from "@/components/Loading";
 
-const myProfile = () => {
+const MyProfile = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -77,4 +78,4 @@ const myProfile = () => {
   );
 };
 
-export default myProfile;
+export default MyProfile;

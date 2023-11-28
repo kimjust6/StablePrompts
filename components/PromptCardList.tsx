@@ -7,7 +7,8 @@ const PromptCardList = ({ data, handleTagClick }) => {
         <PromptCard
           key={post._id}
           post={post}
-          handleTagClick={handleTagClick}></PromptCard>
+          handleTagClick={handleTagClick}
+        />
       ))}
     </div>
   );

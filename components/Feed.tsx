@@ -60,14 +60,13 @@ const Feed = () => {
           value={searchText}
           onChange={searchOnChange}
           required
-          className="search_input peer"></Input>
+          className="search_input peer"
+        />
       </form>
       {posts === null ? (
         <Loading />
       ) : (
-        <PromptCardList
-          data={posts}
-          handleTagClick={searchOnChange}></PromptCardList>
+        <PromptCardList data={posts} handleTagClick={searchOnChange} />
       )}
     </section>
   );
