@@ -63,7 +63,7 @@ const Feed = () => {
           className="search_input peer"></Input>
       </form>
       {posts === null ? (
-        <Loading></Loading>
+        <Loading />
       ) : (
         <PromptCardList
           data={posts}
