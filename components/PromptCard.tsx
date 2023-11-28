@@ -45,6 +45,14 @@ const PromptCard = ({
     setTimeout(() => setCopiedPost(""), 2000);
   };
 
+  const profileClickHelper = () => {
+    if (session?.user.id != post?.creator?._id) {
+      router.push(`/profile/${post?.creator._id}`);
+    } else {
+      router.push(`/profile`);
+    }
+  };
+
   return (
     <Card className="prompt_card">
       <CardHeader>
@@ -55,17 +63,10 @@ const PromptCard = ({
               alt="userImage"
               width={40}
               height={40}
-              className="rounded-full object-contain"
+              onClick={profileClickHelper}
+              className="rounded-full object-contain cursor-pointer"
             />
-            <div
-              className="cursor-pointer"
-              onClick={() => {
-                if (session?.user.id != post?.creator?._id) {
-                  router.push(`/profile/${post?.creator._id}`);
-                } else {
-                  router.push(`/profile`);
-                }
-              }}>
+            <div onClick={profileClickHelper} className="cursor-pointer">
               <h3 className="font-semibold ">
                 {post?.creator?.fName} {post?.creator?.lName}
               </h3>

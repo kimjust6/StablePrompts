@@ -11,14 +11,12 @@ const MyProfile = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
-
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/");
     },
   });
-
   // method that handles edit post
   const handleEdit = (post) => {
     // redirect to route /update-prompt
