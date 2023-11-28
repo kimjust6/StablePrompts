@@ -3,6 +3,7 @@ import Provider from "@/components/Provider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "@/styles/globals.css";
+import { EdgeStoreProvider } from "@/utils/edgestore";
 import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
   title: "Stable Prompts",
@@ -14,16 +15,18 @@ const RootLayout = ({ children }) => {
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Provider>
-            <div className="main">
-              <div className="gradient"></div>
-            </div>
-            <main className="app">
-              <Nav />
-              {children}
-              <Analytics />
-            </main>
-          </Provider>
+          <EdgeStoreProvider>
+            <Provider>
+              <div className="main">
+                <div className="gradient"></div>
+              </div>
+              <main className="app">
+                <Nav />
+                {children}
+                <Analytics />
+              </main>
+            </Provider>
+          </EdgeStoreProvider>
         </ThemeProvider>
       </body>
     </html>

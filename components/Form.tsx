@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { Input } from "./ui/input";
+import FileUpload from "./FileUpload";
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
   return (
@@ -52,6 +53,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             className="form_input"
           />
         </Label>
+        <FileUpload />
         <div className="flex-end mx- mb-5 gap-4">
           <Link href="/">
             <Button type="button" variant="outline" size="lg">
