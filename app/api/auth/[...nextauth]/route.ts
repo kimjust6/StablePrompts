@@ -33,10 +33,10 @@ const handler = NextAuth({
         // if user does not exist, create it
         if (!doesUserExist) {
           await User.create({
-            email: userInfo.profile.email,
-            fName: userInfo.profile.given_name,
-            lName: userInfo.profile.family_name,
-            image: userInfo.profile.picture,
+            email: userInfo?.profile?.email,
+            fName: userInfo?.profile?.given_name,
+            lName: userInfo?.profile?.family_name,
+            image: userInfo?.profile?.picture,
           });
         }
         return true;
