@@ -98,6 +98,7 @@ const NavOptions = () => {
               <Home strokeWidth={1.5} className="h-4 w-4" />
               <span className="mx-3">Home</span>
             </DropdownMenuItem>
+
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
@@ -109,25 +110,24 @@ const NavOptions = () => {
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                setTheme(theme === "dark" ? "light" : "dark");
-              }}>
-              {theme === "dark" ? (
-                <SunIcon strokeWidth={1.5} className="h-4 w-4" />
-              ) : (
-                <MoonStar strokeWidth={1.5} className="h-4 w-4" />
-              )}
-              <span className="mx-3">Toggle Theme</span>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem
-              className="cursor-pointer"
-              onClick={() => {
                 router.push("/create-prompt");
               }}>
               <PlusCircle strokeWidth={1.5} className="h-4 w-4" />
               <span className="mx-3">New Prompt</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {
+              setTheme(theme === "dark" ? "light" : "dark");
+            }}>
+            {theme === "dark" ? (
+              <SunIcon strokeWidth={1.5} className="h-4 w-4" />
+            ) : (
+              <MoonStar strokeWidth={1.5} className="h-4 w-4" />
+            )}
+            <span className="mx-3">Toggle Theme</span>
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => signOut()}
