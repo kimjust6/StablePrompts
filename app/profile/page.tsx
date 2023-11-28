@@ -46,7 +46,9 @@ const myProfile = () => {
   // on first load, get all the posts
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`/api/user/${session?.user.id}/posts`);
+      const response = await fetch(`/api/user/${session?.user.id}/posts`, {
+        cache: "no-store",
+      });
       const responsePosts = await response.json();
       setPosts(responsePosts);
       setIsLoading(false);
