@@ -21,7 +21,7 @@ const RootLayout = ({ children }) => {
             <main className="app">
               <Nav />
               {children}
-              <Analytics />
+              {/* <Analytics /> */}
             </main>
           </Provider>
         </ThemeProvider>
