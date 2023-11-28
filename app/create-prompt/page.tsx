@@ -15,6 +15,8 @@ const CreatePrompt = () => {
   });
   const [post, setPost] = useState({ prompt: "", tag: "" });
   const [submitting, setSubmitting] = useState(false);
+  const [url, setUrl] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleCreatePrompt = async (e) => {
     // prevent the page from reloading
@@ -32,6 +34,7 @@ const CreatePrompt = () => {
           prompt: post.prompt,
           userId: session?.user.id,
           tag: post.tag,
+          url: url,
         }),
       });
 
@@ -53,6 +56,10 @@ const CreatePrompt = () => {
       setPost={setPost}
       submitting={submitting}
       handleSubmit={handleCreatePrompt}
+      url={url}
+      setUrl={setUrl}
+      isLoading={isLoading}
+      setIsLoading={setIsLoading}
     />
   );
 };
