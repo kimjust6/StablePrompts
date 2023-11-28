@@ -1,11 +1,21 @@
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import FileUpload from "./FileUpload";
+import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
-import { Input } from "./ui/input";
-import FileUpload from "./FileUpload";
 
-const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
+const Form = ({
+  type,
+  post,
+  setPost,
+  submitting,
+  handleSubmit,
+  isLoading,
+  setIsLoading,
+  url,
+  setUrl,
+}) => {
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left">
@@ -53,7 +63,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             className="form_input"
           />
         </Label>
-        {/* <FileUpload /> */}
+        <FileUpload setUrl={setUrl} setIsLoading={setIsLoading} />
         <div className="flex-end mx- mb-5 gap-4">
           <Link href="/">
             <Button type="button" variant="outline" size="lg">
@@ -65,7 +75,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             variant="outline"
             size="lg"
             className="bg-violet-600 hover:bg-violet-500 hover:text-white dark:hover:bg-violet-800 text-white "
-            disabled={submitting}>
+            disabled={submitting || isLoading}>
             {submitting ? "Submit..." : "Submit"}
           </Button>
         </div>
