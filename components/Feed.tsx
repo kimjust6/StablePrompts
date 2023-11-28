@@ -69,9 +69,6 @@ const Feed = () => {
           data={posts}
           handleTagClick={searchOnChange}></PromptCardList>
       )}
-
-      {allPosts?.length ?? "null"}
-      {/* {JSON.stringify(allPosts)} */}
     </section>
   );
 };
