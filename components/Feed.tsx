@@ -63,12 +63,15 @@ const Feed = () => {
           className="search_input peer"></Input>
       </form>
       {posts === null ? (
-        <Loading></Loading>
+        <Loading />
       ) : (
         <PromptCardList
           data={posts}
           handleTagClick={searchOnChange}></PromptCardList>
       )}
+
+      {allPosts.length}
+      {/* {JSON.stringify(allPosts)} */}
     </section>
   );
 };

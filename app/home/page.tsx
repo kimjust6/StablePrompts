@@ -12,7 +12,7 @@ const Home = () => {
         Sign in with Google to find and share prompts for stable diffusion.
         Share your AI generated images!
       </p>
-      <Feed></Feed>
+      <Feed/>
     </section>
   );
 };

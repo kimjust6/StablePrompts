@@ -29,7 +29,7 @@ const handler = NextAuth({
           email: session.user.email,
         } as any);
 
-        session.user.id = sessionUser?._id?.toString();
+        session.user.id = sessionUser._id.toString();
         return session;
       } catch (error) {
         console.log(error);
