@@ -70,7 +70,7 @@ const Feed = () => {
           handleTagClick={searchOnChange}></PromptCardList>
       )}
 
-      {allPosts.length}
+      {allPosts?.length ?? "null"}
       {/* {JSON.stringify(allPosts)} */}
     </section>
   );
