@@ -63,7 +63,7 @@ const Form = ({
             className="form_input"
           />
         </Label>
-        <FileUpload setUrl={setUrl} setIsLoading={setIsLoading} />
+        {/* <FileUpload setUrl={setUrl} setIsLoading={setIsLoading} /> */}
         <div className="flex-end mx- mb-5 gap-4">
           <Link href="/">
             <Button type="button" variant="outline" size="lg">
