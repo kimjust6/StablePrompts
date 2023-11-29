@@ -5,13 +5,29 @@ import PromptCardList from "./PromptCardList";
 import Loading from "./Loading";
 import { Input } from "./ui/input";
 import PromptCard from "./PromptCard";
-import { useSession } from "next-auth/react";
+import retry from "async/retry";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState(null);
   const [allPosts, setAllPosts] = useState(null);
-  const { data: session, status } = useSession();
+
+  const apiMethod = async function (uri, callback) {
+    // Call your api here (or whatever thing you want to do) and assign to result.
+    try {
+      const result = await fetch("/api/prompt/allprompts/nice", {
+        cache: "no-store",
+      });
+      const responsePosts = await result.json();
+
+      setAllPosts(responsePosts);
+      setPosts(responsePosts);
+      callback(null, responsePosts);
+    } catch (error) {
+      callback(error);
+    }
+  };
+
   const searchOnChange = (e) => {
     const text = (e?.target?.value ?? e).toLowerCase();
     setSearchText(text);
@@ -36,18 +52,31 @@ const Feed = () => {
   // on first load, get all the posts
   useEffect(() => {
     const fetchPosts = async () => {
-      try {
-        const response = await fetch("/api/prompt/allprompts/nice", {
-          cache: "no-store",
-        });
-        const responsePosts = await response.json();
+      retry(
+        { times: 5, interval: 200 },
+        function (callback) {
+          return apiMethod("/api/prompt/allprompts/nice", callback);
+        },
+        function (err, result) {
+          setAllPosts(result);
+          setPosts(result);
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
 
-        // const responsePosts = await axios.get("/api/prompt/allprompts/nice");
-        setAllPosts(responsePosts);
-        setPosts(responsePosts);
-      } catch (error) {
-        console.log(error);
-      }
+      // try {
+      //   const response = await fetch("/api/prompt/allprompts/nice", {
+      //     cache: "no-store",
+      //   });
+      //   const responsePosts = await response.json();
+
+      //   setAllPosts(responsePosts);
+      //   setPosts(responsePosts);
+      // } catch (error) {
+      //   console.log(error);
+      // }
     };
 
     fetchPosts();
