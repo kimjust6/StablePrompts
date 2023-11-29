@@ -14,6 +14,7 @@ const handler = NextAuth({
   callbacks: {
     async session({ session }) {
       try {
+        await connectToDB();
         const sessionUser = await User.findOne({
           email: session.user.email,
         });
