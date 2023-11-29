@@ -5,12 +5,13 @@ import PromptCardList from "./PromptCardList";
 import Loading from "./Loading";
 import { Input } from "./ui/input";
 import PromptCard from "./PromptCard";
+import { useSession } from "next-auth/react";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState(null);
   const [allPosts, setAllPosts] = useState(null);
-
+  const { data: session, status } = useSession();
   const searchOnChange = (e) => {
     const text = (e?.target?.value ?? e).toLowerCase();
     setSearchText(text);
@@ -48,7 +49,7 @@ const Feed = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [status]);
 
   return (
     <section className="feed">
