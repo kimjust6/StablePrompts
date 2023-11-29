@@ -94,12 +94,8 @@ const Feed = () => {
             <PromptCard
               key={post._id}
               post={post}
-              handleDelete={() => {
-                console.log("nice");
-              }}
-              handleEdit={() => {
-                console.log("nice2");
-              }}
+              handleDelete={() => {}}
+              handleEdit={() => {}}
             />
           ))}
         </div>
