@@ -5,6 +5,7 @@ import { connectToDB } from "./database";
 import Prompt from "@/models/prompt";
 import User from "@/models/user";
 
+// set the stable diffusions api url
 export async function setStableDiffusionAPIMongoDB(url: string) {
   try {
     await connectToDB();
@@ -27,16 +28,20 @@ export async function setStableDiffusionAPIMongoDB(url: string) {
     return JSON.stringify({ error: "Error: Failed to update url." });
   }
 }
-export async function getStableDiffusionAPIMongoDB(url: string) {
+
+// get the stable diffusions api url
+export async function getStableDiffusionAPIMongoDB() {
   try {
     await connectToDB();
     const response = await StableAPI.findOne({});
+    return JSON.stringify(response);
   } catch (error) {
     console.log(error);
     return JSON.stringify({ error: "Error: Failed to update url." });
   }
 }
 
+// get all prompts
 export async function getAllPrompts() {
   try {
     await connectToDB();
@@ -49,6 +54,7 @@ export async function getAllPrompts() {
   }
 }
 
+// get prompts by creator id
 export async function getPromptByCreatorId(id: string) {
   try {
     await connectToDB();
@@ -67,6 +73,7 @@ export async function getPromptByCreatorId(id: string) {
     return JSON.stringify({ error: "User has no Prompts." });
   }
 }
+
 export async function getUserById(id: string) {
   try {
     await connectToDB();
