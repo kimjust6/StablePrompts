@@ -13,9 +13,7 @@ const Nav = () => {
   ) : (
     <section className="w-full flex flex-row justify-between  items-center py-2">
       <nav className="flex-between w-full ">
-        <Link
-          href="/homepage"
-          className="flex gap-2 items-center justify-center">
+        <Link href="/share" className="flex gap-2 items-center justify-center">
           <Image
             src="/assets/images/logo.svg"
             width={45}

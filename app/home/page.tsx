@@ -12,7 +12,7 @@ export const Root = () => {
       <p className="desc text-center">
         A curated collection of prompts for stable diffusion
       </p>
-      <Link href="/homepage" className="mt-10">
+      <Link href="/share" className="mt-10">
         <Button>Explore Prompts</Button>
       </Link>
     </section>

@@ -85,7 +85,7 @@ const NavOptions = () => {
             <DropdownMenuItem
               className="cursor-pointer"
               onClick={() => {
-                router.push("/homepage");
+                router.push("/share");
               }}>
               <Home strokeWidth={1.5} className="h-4 w-4" />
               <span className="mx-3">Home</span>

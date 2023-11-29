@@ -94,9 +94,9 @@ const PromptCard = ({
       <CardFooter className="flex flex-col w-full items-start">
         <p
           className={
-            "font-inter text-md text-violet-500 -mt-4 -mb-2" +
-            (pathName === "/homepage"
-              ? "hover:text-violet-700 hover:underline cursor-pointer"
+            "font-inter text-md text-violet-500 -mt-4 -mb-2 " +
+            (pathName === "/share"
+              ? " hover:text-violet-700 hover:underline cursor-pointer"
               : "")
           }
           onClick={() => {
