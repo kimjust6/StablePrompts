@@ -157,7 +157,7 @@ const PromptCard = ({
                   const response = await generateImage(post.prompt);
                   setMyImage(response);
                 }}>
-                Generate Image
+                {myImage === "" ? "Generate Image" : "Regenerate Image"}
               </Button>
             </div>
           </div>
