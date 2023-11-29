@@ -3,6 +3,7 @@
 import StableAPI from "@/models/stableAPI";
 import { connectToDB } from "./database";
 import Prompt from "@/models/prompt";
+import User from "@/models/user";
 
 export async function setStableDiffusionAPIMongoDB(url: string) {
   try {
@@ -23,7 +24,7 @@ export async function setStableDiffusionAPIMongoDB(url: string) {
     }
   } catch (error) {
     console.log(error);
-    return new Response("Error: Failed to update url.", { status: 500 });
+    return JSON.stringify({ error: "Error: Failed to update url." });
   }
 }
 export async function getStableDiffusionAPIMongoDB(url: string) {
@@ -32,7 +33,7 @@ export async function getStableDiffusionAPIMongoDB(url: string) {
     const response = await StableAPI.findOne({});
   } catch (error) {
     console.log(error);
-    return new Response("Error: Failed to update url.", { status: 500 });
+    return JSON.stringify({ error: "Error: Failed to update url." });
   }
 }
 
@@ -41,10 +42,10 @@ export async function getAllPrompts() {
     await connectToDB();
     const prompts = await Prompt.find({}).populate("creator");
 
-    return new Response(JSON.stringify(prompts), { status: 200 });
+    return JSON.stringify(prompts);
   } catch (error) {
     console.log(error);
-    return new Response("Error: Failed to retrieve prompts.", { status: 500 });
+    JSON.stringify({ error: "Could not get all Prompts." });
   }
 }
 
@@ -52,17 +53,35 @@ export async function getPromptByCreatorId(id: string) {
   try {
     await connectToDB();
     // find singular prompt with id params.id
-    const prompt = await Prompt.findById(id);
+    const prompt = await Prompt.find({ creator: id }).populate("creator");
 
     // case where prompt does not exist
     if (!prompt) {
-      return new Response("Prompt does not exist!", { status: 404 });
+      return JSON.stringify({ error: "Prompt does not exist." });
     }
 
     // success case
-    return new Response(JSON.stringify(prompt), { status: 200 });
+    return JSON.stringify(prompt);
   } catch (error) {
     console.log(error);
-    return new Response("Error: Failed to retrieve prompts.", { status: 500 });
+    return JSON.stringify({ error: "User has no Prompts." });
+  }
+}
+export async function getUserById(id: string) {
+  try {
+    await connectToDB();
+    // find singular prompt with id params.id
+    const UseInfo = await User.find({ id: id });
+
+    // case where prompt does not exist
+    if (!UseInfo) {
+      return JSON.stringify({ error: "Prompt does not exist." });
+    }
+
+    // success case
+    return JSON.stringify(UseInfo);
+  } catch (error) {
+    console.log(error);
+    return JSON.stringify({ error: "User does not exist." });
   }
 }

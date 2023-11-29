@@ -6,6 +6,7 @@ import Loading from "./Loading";
 import { Input } from "./ui/input";
 import PromptCard from "./PromptCard";
 import { useSession } from "next-auth/react";
+import { getAllPrompts } from "@/utils/actions";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
@@ -37,12 +38,8 @@ const Feed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("/api/prompt/allprompts/nice", {
-          cache: "no-store",
-        });
-        const responsePosts = await response.json();
-
-        // const responsePosts = await axios.get("/api/prompt/allprompts/nice");
+        const response = await getAllPrompts();
+        const responsePosts = JSON.parse(response);
         setAllPosts(responsePosts);
         setPosts(responsePosts);
       } catch (error) {
