@@ -42,13 +42,7 @@ const Feed = () => {
         // });
         // const responsePosts = await response.json();
 
-        const responsePosts = await axios.get("/api/prompt", {
-          headers: {
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
-            Expires: "0",
-          },
-        });
+        const responsePosts = await axios.get("/api/prompt");
         setAllPosts(responsePosts.data);
         setPosts(responsePosts.data);
       } catch (error) {
