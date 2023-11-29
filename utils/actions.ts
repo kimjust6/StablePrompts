@@ -152,6 +152,7 @@ export async function generateImage(prompt: string) {
 
     // make the stable dffusion api call
     const response = await fetch(`${base_url.url}/sdapi/v1/txt2img`, {
+      cache: "no-store",
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: new Headers({ "content-type": "application/json" }),
       mode: "no-cors",
