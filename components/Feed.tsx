@@ -60,7 +60,6 @@ const Feed = () => {
         function (err, result) {
           setAllPosts(result);
           setPosts(result);
-          console.log(result);
           if (err) {
             console.log(err);
           }
