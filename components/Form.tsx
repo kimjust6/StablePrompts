@@ -63,7 +63,7 @@ const Form = ({
             className="form_input"
           />
         </Label>
-        <FileUpload
+        {/* <FileUpload */}
           type={type}
           setUrl={setUrl}
           setIsUploading={setIsUploading}
