@@ -1,7 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
 const UserSchema = new Schema({
-  id: { type: String, required: false },
   email: {
     type: String,
     unique: [true, "That email is already in use."],

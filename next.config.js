@@ -1,17 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  headers: () => [
-    {
-      source: "/:path*",
-      headers: [
-        {
-          key: "Cache-Control",
-          value: "no-store",
-        },
-      ],
-    },
-  ],
-
+  experimental: {
+    serverComponentsExternalPackages: ["mongoose"], // <-- and this
+  },
   reactStrictMode: false,
   typescript: {
     ignoreBuildErrors: true,
