@@ -7,7 +7,7 @@ export const Root = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/homepage");
+    router.push("/home");
   }, []);
   return <></>;
 };
