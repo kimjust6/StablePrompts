@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-
+import axios from "axios";
 import PromptCardList from "./PromptCardList";
 import Loading from "./Loading";
 import { Input } from "./ui/input";
@@ -37,19 +37,21 @@ const Feed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch("/api/prompt", {
-          cache: "no-store",
-        });
-        const responsePosts = await response.json();
-        setAllPosts(responsePosts);
-        setPosts(responsePosts);
+        // const response = await fetch("/api/prompt", {
+        //   cache: "no-store",
+        // });
+        // const responsePosts = await response.json();
+
+        const responsePosts = await axios.get("/api/prompt");
+        setAllPosts(responsePosts.data);
+        setPosts(responsePosts.data);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchPosts();
-  }, [status]);
+  }, []);
 
   return (
     <section className="feed">
