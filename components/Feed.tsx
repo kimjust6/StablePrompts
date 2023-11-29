@@ -76,7 +76,18 @@ const Feed = () => {
         <Loading />
       ) : (
         <div className="mt-10 prompt_layout">
-          {posts?.map((post) => <PromptCard key={post._id} post={post} />)}
+          {posts?.map((post) => (
+            <PromptCard
+              key={post._id}
+              post={post}
+              handleDelete={() => {
+                console.log("nice");
+              }}
+              handleEdit={() => {
+                console.log("nice2");
+              }}
+            />
+          ))}
         </div>
       )}
     </section>
