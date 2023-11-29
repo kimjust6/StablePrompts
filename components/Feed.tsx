@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import PromptCardList from "./PromptCardList";
 import Loading from "./Loading";
 import { Input } from "./ui/input";
+import PromptCard from "./PromptCard";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
@@ -65,10 +66,18 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
-      {posts === null ? (
+      {/* {posts === null ? (
         <Loading />
       ) : (
         <PromptCardList data={posts} handleTagClick={searchOnChange} />
+      )} */}
+
+      {posts === null ? (
+        <Loading />
+      ) : (
+        <div className="mt-10 prompt_layout">
+          {posts?.map((post) => <PromptCard key={post._id} post={post} />)}
+        </div>
       )}
     </section>
   );
