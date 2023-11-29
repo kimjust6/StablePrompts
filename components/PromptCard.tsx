@@ -95,7 +95,7 @@ const PromptCard = ({
         <p
           className={
             "font-inter text-md text-violet-500 -mt-4 -mb-2 " +
-            (pathName === "/share"
+            (pathName === "/homepage"
               ? " hover:text-violet-700 hover:underline cursor-pointer"
               : "")
           }
