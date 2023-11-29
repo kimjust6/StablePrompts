@@ -15,6 +15,8 @@ import {
 import { Copy, Check } from "lucide-react";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { generateImage } from "@/utils/actions";
+import Loading from "./Loading";
 
 interface PromptCardProps {
   key?: String;
@@ -32,6 +34,7 @@ const PromptCard = ({
 }: PromptCardProps) => {
   const [copiedPost, setCopiedPost] = useState("");
   const { data: session, status } = useSession();
+  const [myImage, setMyImage] = useState("");
   // get path of url
   const pathName = usePathname();
   const router = useRouter();
@@ -105,7 +108,7 @@ const PromptCard = ({
           }}>
           {post.tag}
         </p>
-        {session?.user.id === post?.creator?._id && pathName === "/profile" && (
+        {session?.user.id === post?.creator?._id && pathName === "/profile" ? (
           <div className="w-full ">
             <Separator className="mt-5 mb-2 " />
             <div className="flex w-full justify-center gap-10">
@@ -124,6 +127,37 @@ const PromptCard = ({
                   handleDelete(post);
                 }}>
                 Delete
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="w-full ">
+            <Separator className="my-5  " />
+
+            {myImage ? (
+              <Image
+                alt="ai generated image"
+                width="512"
+                height="512"
+                src={`data:image/png;base64,${myImage}`}
+              />
+            ) : (
+              myImage !== "" && (
+                <div className="flex items-center justify-center max-h-64">
+                  <Loading />
+                </div>
+              )
+            )}
+            <div className="flex w-full justify-center gap-10 mt-5 mb-3">
+              <Button
+                variant="ghost"
+                className="text-card-foreground/90 -mb-5 -mt-1 border"
+                onClick={async () => {
+                  setMyImage(null);
+                  const response = await generateImage(post.prompt);
+                  setMyImage(response);
+                }}>
+                Generate Image
               </Button>
             </div>
           </div>

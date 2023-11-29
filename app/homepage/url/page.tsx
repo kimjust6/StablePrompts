@@ -14,7 +14,6 @@ const SetUrl = () => {
   const [Url, setUrl] = useState<string>("");
   const [promptText, setPromptText] = useState<string>("");
   const [myImage, setMyImage] = useState("");
-  // const [isGeneratingImage, setIsGeneratingImage] = useState<boolean>(false);
 
   useEffect(() => {
     const getAPI = async () => {

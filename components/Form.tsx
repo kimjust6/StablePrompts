@@ -69,7 +69,7 @@ const Form = ({
           setIsUploading={setIsUploading}
         /> */}
         <div className="flex-end mx- mb-5 gap-4">
-          <Link href="/">
+          <Link href="/homepage">
             <Button type="button" variant="outline" size="lg">
               Cancel
             </Button>
