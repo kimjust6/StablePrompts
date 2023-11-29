@@ -1,11 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 // import axios from "axios";
-import PromptCardList from "./PromptCardList";
+import { getAllPrompts } from "@/utils/actions";
 import Loading from "./Loading";
-import { Input } from "./ui/input";
 import PromptCard from "./PromptCard";
-import retry from "async/retry";
+import { Input } from "./ui/input";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
@@ -52,31 +51,14 @@ const Feed = () => {
   // on first load, get all the posts
   useEffect(() => {
     const fetchPosts = async () => {
-      retry(
-        { times: 5, interval: 200 },
-        function (callback) {
-          return apiMethod("/api/prompt/allprompts/nice", callback);
-        },
-        function (err, result) {
-          setAllPosts(result);
-          setPosts(result);
-          if (err) {
-            console.log(err);
-          }
-        }
-      );
-
-      // try {
-      //   const response = await fetch("/api/prompt/allprompts/nice", {
-      //     cache: "no-store",
-      //   });
-      //   const responsePosts = await response.json();
-
-      //   setAllPosts(responsePosts);
-      //   setPosts(responsePosts);
-      // } catch (error) {
-      //   console.log(error);
-      // }
+      try {
+        const response = await getAllPrompts();
+        const responsePosts = JSON.parse(response);
+        setAllPosts(responsePosts);
+        setPosts(responsePosts);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchPosts();
