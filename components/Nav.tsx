@@ -1,9 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import NavOptions from "./NavOptions";
+import { usePathname } from "next/navigation";
 
 const Nav = () => {
-  return (
+  const path = usePathname();
+
+  return path == "/home" ? (
+    ""
+  ) : (
     <section className="w-full flex flex-row justify-between  items-center py-2">
       <nav className="flex-between w-full ">
         <Link href="/" className="flex gap-2 items-center justify-center">
@@ -20,5 +27,4 @@ const Nav = () => {
     </section>
   );
 };
-
 export default Nav;
