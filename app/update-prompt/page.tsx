@@ -14,7 +14,7 @@ const UpdatePrompt = () => {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push("/");
+      router.push("/homepage");
     },
   });
 
@@ -66,7 +66,7 @@ const UpdatePrompt = () => {
 
       // check if response was good
       if (response.ok) {
-        router.push("/");
+        router.push("/homepage");
       }
     } catch (error) {
       console.log(error);

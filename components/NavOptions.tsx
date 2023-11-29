@@ -37,27 +37,19 @@ const NavOptions = () => {
 
   const signInButton = () => {
     return (
-      <>
-        {!session && (
-          <TooltipProvider>
-            <ThemeToggle />
-          </TooltipProvider>
-        )}
-
-        <Button
-          variant="outline"
-          onClick={() => {
-            signIn("google");
-          }}>
-          <Image
-            src="/assets/icons/google.svg"
-            alt="googleLogo"
-            height={20}
-            width={20}
-          />
-          <span className="mx-2">Sign In</span>
-        </Button>
-      </>
+      <Button
+        variant="outline"
+        onClick={() => {
+          signIn("google");
+        }}>
+        <Image
+          src="/assets/icons/google.svg"
+          alt="googleLogo"
+          height={20}
+          width={20}
+        />
+        <span className="mx-2">Sign In</span>
+      </Button>
     );
   };
 
@@ -116,7 +108,7 @@ const NavOptions = () => {
               <span className="mx-3">New Prompt</span>
             </DropdownMenuItem>
           </DropdownMenuGroup>
-          <DropdownMenuItem
+          {/* <DropdownMenuItem
             className="cursor-pointer"
             onClick={() => {
               setTheme(theme === "dark" ? "light" : "dark");
@@ -127,7 +119,7 @@ const NavOptions = () => {
               <MoonStar strokeWidth={1.5} className="h-4 w-4" />
             )}
             <span className="mx-3">Toggle Theme</span>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => signOut()}
@@ -142,6 +134,9 @@ const NavOptions = () => {
 
   return (
     <div className="flex items-center gap-2">
+      <TooltipProvider>
+        <ThemeToggle />
+      </TooltipProvider>
       {session?.user ? dropdownMenu() : signInButton()}
     </div>
   );

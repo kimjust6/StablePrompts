@@ -15,7 +15,7 @@ const MyProfile = () => {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
-      router.push("/");
+      router.push("/homepage");
     },
   });
   // method that handles edit post

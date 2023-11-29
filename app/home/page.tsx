@@ -10,7 +10,7 @@ export const Root = () => {
         <span className="purple_gradient "> Stable Prompts</span>
       </h1>
       <p className="desc text-center">
-        Explore a curated collection of prompts for stable diffusion
+        A curated collection of prompts for stable diffusion
       </p>
       <Link href="/homepage" className="mt-10">
         <Button>Explore Prompts</Button>
