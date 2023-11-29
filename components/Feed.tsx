@@ -42,7 +42,7 @@ const Feed = () => {
         // });
         // const responsePosts = await response.json();
 
-        const responsePosts = await axios.get("/api/prompt");
+        const responsePosts = await axios.get("/api/prompt/allprompts/nice");
         setAllPosts(responsePosts.data);
         setPosts(responsePosts.data);
       } catch (error) {
