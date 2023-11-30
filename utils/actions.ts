@@ -168,7 +168,6 @@ export async function generateImage(prompt: string, postId: string = null) {
         cache: "no-store",
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: new Headers({ "content-type": "application/json" }),
-        mode: "no-cors",
         body: JSON.stringify(data), // body data type must match "Content-Type" header
       }
     );
