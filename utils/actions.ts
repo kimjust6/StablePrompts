@@ -150,7 +150,7 @@ export async function generateImage(prompt: string, postId: string = null) {
         inpaint_strength: 1,
         inpaint_respective_field: 1,
       },
-      require_base64: false,
+      require_base64: true,
       async_process: false,
     };
 
@@ -168,7 +168,7 @@ export async function generateImage(prompt: string, postId: string = null) {
         cache: "no-store",
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: new Headers({ "content-type": "application/json" }),
-        mode: "cors",
+        mode: "no-cors",
         body: JSON.stringify(data), // body data type must match "Content-Type" header
       }
     );
