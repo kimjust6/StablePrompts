@@ -4,6 +4,7 @@ import StableAPI from "@/models/stableAPI";
 import { connectToDB } from "./database";
 import Prompt from "@/models/prompt";
 import User from "@/models/user";
+import { convertUrl } from "./helperFunctions";
 
 // set the stable diffusions api url
 export async function setStableDiffusionAPIMongoDB(url: string) {
@@ -95,58 +96,7 @@ export async function getUserById(id: string) {
 
 export async function generateImage(prompt: string) {
   try {
-    // body for the stable diffusions api call
-    // const data = {
-    //   prompt: prompt,
-    //   negative_prompt:
-    //     "bad anatomy, bad hands, three hands, three legs, bad arms, missing legs, missing arms, poorly drawn face, bad face, fused face, cloned face, worst face, three crus, extra crus, fused crus, worst feet, three feet, fused feet, fused thigh, three thigh, fused thigh, extra thigh, worst thigh, missing fingers, extra fingers, ugly fingers, long fingers, horn, extra eyes, huge eyes, 2girl, amputation, disconnected limbs, cartoon, cg, 3d, unreal, animate",
-    //   styles: ["string"],
-    //   seed: -1,
-    //   subseed: -1,
-    //   subseed_strength: 0,
-    //   seed_resize_from_h: -1,
-    //   seed_resize_from_w: -1,
-    //   sampler_name: "Euler a",
-    //   batch_size: 1,
-    //   n_iter: 1,
-    //   steps: 25,
-    //   cfg_scale: 7,
-    //   width: 512,
-    //   height: 512,
-    //   restore_faces: true,
-    //   tiling: true,
-    //   do_not_save_samples: false,
-    //   do_not_save_grid: false,
-    //   eta: 0,
-    //   denoising_strength: 0,
-    //   s_min_uncond: 0,
-    //   s_churn: 0,
-    //   s_tmax: 0,
-    //   s_tmin: 0,
-    //   s_noise: 0,
-    //   override_settings: {},
-    //   override_settings_restore_afterwards: true,
-
-    //   refiner_switch_at: 0,
-    //   disable_extra_networks: false,
-    //   comments: {},
-    //   enable_hr: false,
-    //   firstphase_width: 0,
-    //   firstphase_height: 0,
-    //   hr_scale: 2,
-    //   hr_second_pass_steps: 0,
-    //   hr_resize_x: 0,
-    //   hr_resize_y: 0,
-    //   hr_prompt: "",
-    //   hr_negative_prompt: "",
-    //   sampler_index: "Euler",
-    //   script_name: "",
-    //   script_args: [],
-    //   send_images: true,
-    //   save_images: false,
-    //   alwayson_scripts: {},
-    // };
-
+    // data for the image generation api call
     const data = {
       prompt: prompt,
       negative_prompt: "",
@@ -199,7 +149,7 @@ export async function generateImage(prompt: string) {
         inpaint_strength: 1,
         inpaint_respective_field: 1,
       },
-      require_base64: true,
+      require_base64: false,
       async_process: false,
     };
 
@@ -207,23 +157,31 @@ export async function generateImage(prompt: string) {
     // get url for stable diffusions api
     const base_url = await StableAPI.findOne({});
 
-    // make the stable dffusion api call
+    // make the stable diffusion api call
     // const response = await fetch(`${base_url.url}/sdapi/v1/txt2img`, {
-    const response = await fetch(
-      `${base_url.url}/v1/generation/text-to-image`,
+    // const response = await fetch(
+    //   `${base_url.url}/v1/generation/text-to-image`,
+    //   {
+    //     cache: "no-store",
+    //     method: "POST", // *GET, POST, PUT, DELETE, etc.
+    //     headers: new Headers({ "content-type": "application/json" }),
+    //     mode: "no-cors",
+    //     body: JSON.stringify(data), // body data type must match "Content-Type" header
+    //   }
+    // );
+    // const image = await response.json(); // parses JSON response into native JavaScript objects
+    const image = [
       {
-        cache: "no-store",
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        headers: new Headers({ "content-type": "application/json" }),
-        mode: "no-cors",
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
-      }
-    );
-    const image = await response.json(); // parses JSON response into native JavaScript objects
-    console.log({ image });
-    return image[0];
+        url: "http://127.0.0.1:8888/files/2023-12-01/665f61f3-714f-4a18-858a-1e204d57d7ed.png",
+        seed: "350553767766078675",
+        finish_reason: "SUCCESS",
+      },
+    ];
+    const returnUrl = convertUrl(image[0].url, base_url.url);
+
+    return returnUrl;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return JSON.stringify({ error: "User does not exist." });
   }
 }

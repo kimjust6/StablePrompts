@@ -145,7 +145,8 @@ const PromptCard = ({
                 alt="ai generated image"
                 width="512"
                 height="512"
-                src={`data:image/png;base64,${myImage}`}
+                // src={`data:image/png;base64,${myImage}`}
+                src={myImage}
               />
             ) : (
               <></>
@@ -157,7 +158,7 @@ const PromptCard = ({
                 onClick={async () => {
                   setMyImage(null);
                   const response = await generateImage(post.prompt);
-                  setMyImage(response.base64);
+                  setMyImage(response);
                 }}
                 disabled={myImage == null}>
                 {myImage === "" ? (
