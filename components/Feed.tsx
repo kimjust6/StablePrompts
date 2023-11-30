@@ -11,21 +11,21 @@ const Feed = () => {
   const [posts, setPosts] = useState(null);
   const [allPosts, setAllPosts] = useState(null);
 
-  const apiMethod = async function (uri, callback) {
-    // Call your api here (or whatever thing you want to do) and assign to result.
-    try {
-      const result = await fetch("/api/prompt/allprompts/nice", {
-        cache: "no-store",
-      });
-      const responsePosts = await result.json();
+  // const apiMethod = async function (uri, callback) {
+  //   // Call your api here (or whatever thing you want to do) and assign to result.
+  //   try {
+  //     const result = await fetch("/api/prompt/allprompts/nice", {
+  //       cache: "no-store",
+  //     });
+  //     const responsePosts = await result.json();
 
-      setAllPosts(responsePosts);
-      setPosts(responsePosts);
-      callback(null, responsePosts);
-    } catch (error) {
-      callback(error);
-    }
-  };
+  //     setAllPosts(responsePosts);
+  //     setPosts(responsePosts);
+  //     callback(null, responsePosts);
+  //   } catch (error) {
+  //     callback(error);
+  //   }
+  // };
 
   const searchOnChange = (e) => {
     const text = (e?.target?.value ?? e).toLowerCase();

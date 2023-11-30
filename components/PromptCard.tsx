@@ -133,7 +133,7 @@ const PromptCard = ({
         ) : (
           <div className="w-full ">
             <Separator className="my-5  " />
-
+            {myImage == null && `This may take some time...`}
             {myImage ? (
               <Image
                 alt="ai generated image"
@@ -155,8 +155,9 @@ const PromptCard = ({
                 onClick={async () => {
                   setMyImage(null);
                   const response = await generateImage(post.prompt);
-                  setMyImage(response);
-                }}>
+                  setMyImage(response.base64);
+                }}
+                disabled={myImage == null}>
                 {myImage === "" ? "Generate Image" : "Regenerate Image"}
               </Button>
             </div>
