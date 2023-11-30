@@ -157,7 +157,10 @@ const PromptCard = ({
                 className="text-card-foreground/90 -mb-5 -mt-1 border"
                 onClick={async () => {
                   setMyImage(null);
-                  const response = await generateImage(post.prompt);
+                  const response = await generateImage(
+                    post.prompt,
+                    post._id.toString()
+                  );
                   setMyImage(response);
                 }}
                 disabled={myImage == null}>

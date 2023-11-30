@@ -1,5 +1,6 @@
 "use server";
 
+import { PATCH } from "@/app/api/prompt/[id]/route";
 import StableAPI from "@/models/stableAPI";
 import { connectToDB } from "./database";
 import Prompt from "@/models/prompt";
@@ -94,7 +95,7 @@ export async function getUserById(id: string) {
   }
 }
 
-export async function generateImage(prompt: string) {
+export async function generateImage(prompt: string, postId: string = null) {
   try {
     // data for the image generation api call
     const data = {
@@ -179,9 +180,47 @@ export async function generateImage(prompt: string) {
     ];
     const returnUrl = convertUrl(image[0].url, base_url.url);
 
+    // TODO upload image to edgestore
+
+    // save result to mongodb
+    const newPrompt = await updatePrompt(
+      { prompt: null, tag: null, imageUrl: returnUrl },
+      postId
+    );
+    // console.log({ newPrompt });
     return returnUrl;
   } catch (error) {
     // console.log(error);
     return JSON.stringify({ error: "User does not exist." });
+  }
+}
+
+interface PromptData {
+  prompt: string;
+  tag: string;
+  imageUrl: string;
+}
+
+export async function updatePrompt(prompt: PromptData, id: string) {
+  try {
+    await connectToDB();
+    // find singular prompt with id params.id
+    const existingPrompt = await Prompt.findById(id);
+
+    // case where prompt does not exist
+    if (!existingPrompt) {
+      return JSON.stringify({ error: "Prompt does not exist." });
+    }
+    // update prompt
+    prompt?.prompt ? (existingPrompt.prompt = prompt.prompt) : "";
+    prompt?.tag ? (existingPrompt.tag = prompt.tag) : "";
+    prompt?.imageUrl ? (existingPrompt.imageUrl = prompt.imageUrl) : "";
+    // console.log({ existingPrompt });
+    await existingPrompt.save();
+    // success case
+    return JSON.stringify(existingPrompt);
+  } catch (error) {
+    console.log(error);
+    return JSON.stringify({ error: "Failed to update Prompt." });
   }
 }
