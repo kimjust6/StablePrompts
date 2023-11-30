@@ -159,26 +159,28 @@ export async function generateImage(prompt: string, postId: string = null) {
     const base_url = await StableAPI.findOne({});
 
     // make the stable diffusion api call
+    // webui call
     // const response = await fetch(`${base_url.url}/sdapi/v1/txt2img`, {
-    // const response = await fetch(
-    //   `${base_url.url}/v1/generation/text-to-image`,
-    //   {
-    //     cache: "no-store",
-    //     method: "POST", // *GET, POST, PUT, DELETE, etc.
-    //     headers: new Headers({ "content-type": "application/json" }),
-    //     mode: "no-cors",
-    //     body: JSON.stringify(data), // body data type must match "Content-Type" header
-    //   }
-    // );
-    // const image = await response.json(); // parses JSON response into native JavaScript objects
-
-    const image = [
+    //
+    const response = await fetch(
+      `${base_url.url}/v1/generation/text-to-image`,
       {
-        url: "http://127.0.0.1:8888/files/2023-12-01/665f61f3-714f-4a18-858a-1e204d57d7ed.png",
-        seed: "350553767766078675",
-        finish_reason: "SUCCESS",
-      },
-    ];
+        cache: "no-store",
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: new Headers({ "content-type": "application/json" }),
+        mode: "no-cors",
+        body: JSON.stringify(data), // body data type must match "Content-Type" header
+      }
+    );
+    const image = await response.json(); // parses JSON response into native JavaScript objects
+
+    // const image = [
+    //   {
+    //     url: "http://127.0.0.1:8888/files/2023-12-01/665f61f3-714f-4a18-858a-1e204d57d7ed.png",
+    //     seed: "350553767766078675",
+    //     finish_reason: "SUCCESS",
+    //   },
+    // ];
     const returnUrl = convertUrl(image[0].url, base_url.url);
 
     // TODO upload image to edgestore
