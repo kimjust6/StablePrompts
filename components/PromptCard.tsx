@@ -35,7 +35,7 @@ const PromptCard = ({
 }: PromptCardProps) => {
   const [copiedPost, setCopiedPost] = useState("");
   const { data: session, status } = useSession();
-  const [myImage, setMyImage] = useState("");
+  const [myImage, setMyImage] = useState(post?.imageUrl);
   // get path of url
   const pathName = usePathname();
   const router = useRouter();
