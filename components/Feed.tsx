@@ -5,27 +5,14 @@ import { getAllPrompts } from "@/utils/actions";
 import Loading from "./Loading";
 import PromptCard from "./PromptCard";
 import { Input } from "./ui/input";
+import PromptCardList from "./PromptCardList";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState(null);
   const [allPosts, setAllPosts] = useState(null);
 
-  const apiMethod = async function (uri, callback) {
-    // Call your api here (or whatever thing you want to do) and assign to result.
-    try {
-      const result = await fetch("/api/prompt/allprompts/nice", {
-        cache: "no-store",
-      });
-      const responsePosts = await result.json();
 
-      setAllPosts(responsePosts);
-      setPosts(responsePosts);
-      callback(null, responsePosts);
-    } catch (error) {
-      callback(error);
-    }
-  };
 
   const searchOnChange = (e) => {
     const text = (e?.target?.value ?? e).toLowerCase();
@@ -96,6 +83,7 @@ const Feed = () => {
               post={post}
               handleDelete={() => {}}
               handleEdit={() => {}}
+              handleTagClick={searchOnChange}
             />
           ))}
         </div>

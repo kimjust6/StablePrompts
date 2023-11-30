@@ -17,6 +17,7 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { generateImage } from "@/utils/actions";
 import Loading from "./Loading";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 interface PromptCardProps {
   key?: String;
@@ -34,7 +35,7 @@ const PromptCard = ({
 }: PromptCardProps) => {
   const [copiedPost, setCopiedPost] = useState("");
   const { data: session, status } = useSession();
-  const [myImage, setMyImage] = useState("");
+  const [myImage, setMyImage] = useState(post?.imageUrl);
   // get path of url
   const pathName = usePathname();
   const router = useRouter();
@@ -132,21 +133,23 @@ const PromptCard = ({
           </div>
         ) : (
           <div className="w-full ">
-            <Separator className="my-5  " />
-
+            <Separator className="mt-5" />
+            {myImage == null && (
+              <span className="w-full flex justify-center items center mt-2 text-muted-foreground">
+                This may take some time...
+              </span>
+            )}
             {myImage ? (
               <Image
+                className="mt-4"
                 alt="ai generated image"
                 width="512"
                 height="512"
-                src={`data:image/png;base64,${myImage}`}
+                // src={`data:image/png;base64,${myImage}`}
+                src={myImage}
               />
             ) : (
-              myImage !== "" && (
-                <div className="flex items-center justify-center max-h-64">
-                  <Loading />
-                </div>
-              )
+              <></>
             )}
             <div className="flex w-full justify-center gap-10 mt-5 mb-3">
               <Button
@@ -154,10 +157,23 @@ const PromptCard = ({
                 className="text-card-foreground/90 -mb-5 -mt-1 border"
                 onClick={async () => {
                   setMyImage(null);
-                  const response = await generateImage(post.prompt);
+                  const response = await generateImage(
+                    post.prompt,
+                    post._id.toString()
+                  );
                   setMyImage(response);
-                }}>
-                {myImage === "" ? "Generate Image" : "Regenerate Image"}
+                }}
+                disabled={myImage == null}>
+                {myImage === "" ? (
+                  "Generate Image"
+                ) : myImage === null ? (
+                  <>
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
+                    Generating Image
+                  </>
+                ) : (
+                  "Regenerate Image"
+                )}
               </Button>
             </div>
           </div>

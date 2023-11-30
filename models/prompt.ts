@@ -12,6 +12,9 @@ const PromptSchema = new Schema({
   tag: {
     type: String,
   },
+  imageUrl: {
+    type: String,
+  },
 });
 
 // use the Prompt model, || or else create it using PromptSchema
