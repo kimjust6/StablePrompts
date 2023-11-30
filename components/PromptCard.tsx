@@ -17,6 +17,7 @@ import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { generateImage } from "@/utils/actions";
 import Loading from "./Loading";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 interface PromptCardProps {
   key?: String;
@@ -132,21 +133,22 @@ const PromptCard = ({
           </div>
         ) : (
           <div className="w-full ">
-            <Separator className="my-5  " />
-            {myImage == null && `This may take some time...`}
+            <Separator className="mt-5" />
+            {myImage == null && (
+              <span className="w-full flex justify-center items center mt-2 text-muted-foreground">
+                This may take some time...
+              </span>
+            )}
             {myImage ? (
               <Image
+                className="mt-4"
                 alt="ai generated image"
                 width="512"
                 height="512"
                 src={`data:image/png;base64,${myImage}`}
               />
             ) : (
-              myImage !== "" && (
-                <div className="flex items-center justify-center max-h-64">
-                  <Loading />
-                </div>
-              )
+              <></>
             )}
             <div className="flex w-full justify-center gap-10 mt-5 mb-3">
               <Button
@@ -158,7 +160,16 @@ const PromptCard = ({
                   setMyImage(response.base64);
                 }}
                 disabled={myImage == null}>
-                {myImage === "" ? "Generate Image" : "Regenerate Image"}
+                {myImage === "" ? (
+                  "Generate Image"
+                ) : myImage === null ? (
+                  <>
+                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
+                    Generating Image
+                  </>
+                ) : (
+                  "Regenerate Image"
+                )}
               </Button>
             </div>
           </div>
