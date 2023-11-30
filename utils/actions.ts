@@ -98,7 +98,8 @@ export async function generateImage(prompt: string) {
     // body for the stable diffusions api call
     const data = {
       prompt: prompt,
-      negative_prompt: "",
+      negative_prompt:
+        "bad anatomy, bad hands, three hands, three legs, bad arms, missing legs, missing arms, poorly drawn face, bad face, fused face, cloned face, worst face, three crus, extra crus, fused crus, worst feet, three feet, fused feet, fused thigh, three thigh, fused thigh, extra thigh, worst thigh, missing fingers, extra fingers, ugly fingers, long fingers, horn, extra eyes, huge eyes, 2girl, amputation, disconnected limbs, cartoon, cg, 3d, unreal, animate",
       styles: ["string"],
       seed: -1,
       subseed: -1,
