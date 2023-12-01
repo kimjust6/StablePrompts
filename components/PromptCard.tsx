@@ -1,9 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -12,12 +8,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Copy, Check } from "lucide-react";
+import { generateImage } from "@/utils/actions";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Check, Copy } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import Loading from "./Loading";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { generateImage } from "@/utils/actions";
-import Loading from "./Loading";
-import { ReloadIcon } from "@radix-ui/react-icons";
 
 interface PromptCardProps {
   key?: String;
@@ -135,9 +135,15 @@ const PromptCard = ({
           <div className="w-full ">
             <Separator className="mt-5" />
             {myImage == null && (
-              <span className="w-full flex justify-center items center mt-2 text-muted-foreground">
-                This may take some time...
-              </span>
+              <div>
+                <span className="w-full flex justify-center items center mt-2 text-muted-foreground">
+                  This may take some time...
+                </span>
+
+                <span className="w-full flex items-center justify-center h-44">
+                  <Loading />
+                </span>
+              </div>
             )}
             {myImage ? (
               <Image
@@ -168,7 +174,7 @@ const PromptCard = ({
                   "Generate Image"
                 ) : myImage === null ? (
                   <>
-                    <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "}
+                    {/* <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />{" "} */}
                     Generating Image
                   </>
                 ) : (
