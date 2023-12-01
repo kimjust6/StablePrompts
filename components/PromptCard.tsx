@@ -151,8 +151,8 @@ const PromptCard = ({
                 alt="ai generated image"
                 width="512"
                 height="512"
-                // src={`data:image/png;base64,${myImage}`}
-                src={myImage}
+                src={`data:image/png;base64,${myImage}`}
+                // src={myImage}
               />
             ) : (
               <></>

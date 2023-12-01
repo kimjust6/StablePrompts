@@ -149,7 +149,7 @@ export async function generateImage(prompt: string, postId: string = null) {
         inpaint_strength: 1,
         inpaint_respective_field: 1,
       },
-      require_base64: false,
+      require_base64: true,
       async_process: false,
     };
 
@@ -171,9 +171,8 @@ export async function generateImage(prompt: string, postId: string = null) {
     );
     const image = await response.json(); // parses JSON response into native JavaScript objects
 
-    const returnUrl = convertUrl(image[0].url, base_url.url);
-
-    // TODO upload image to edgestore
+    // const returnUrl = convertUrl(image[0].url, base_url.url);
+    const returnUrl = image[0].base64;
 
     // save result to mongodb
     const newPrompt = await updatePrompt(
