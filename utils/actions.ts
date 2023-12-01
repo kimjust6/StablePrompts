@@ -166,6 +166,7 @@ export async function generateImage(prompt: string, postId: string = null) {
       // `${base_url.url}/v1/generation/text-to-image`,
       `https://stable2.justinkim.win/v1/generation/text-to-image`,
       {
+        signal: AbortSignal.timeout(1000 * 20),
         cache: "no-store",
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         headers: new Headers({ "content-type": "application/json" }),
