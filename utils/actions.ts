@@ -154,16 +154,17 @@ export async function generateImage(prompt: string, postId: string = null) {
       async_process: false,
     };
 
-    await connectToDB();
+    // await connectToDB();
     // get url for stable diffusions api
-    const base_url = await StableAPI.findOne({});
+    // const base_url = await StableAPI.findOne({});
 
     // make the stable diffusion api call
     // webui call
     // const response = await fetch(`${base_url.url}/sdapi/v1/txt2img`, {
     //
     const response = await fetch(
-      `${base_url.url}/v1/generation/text-to-image`,
+      // `${base_url.url}/v1/generation/text-to-image`,
+      `https://stable2.justinkim.win/v1/generation/text-to-image`,
       {
         cache: "no-store",
         method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -181,7 +182,7 @@ export async function generateImage(prompt: string, postId: string = null) {
     //     finish_reason: "SUCCESS",
     //   },
     // ];
-    const returnUrl = convertUrl(image[0].url, base_url.url);
+    const returnUrl = convertUrl(image[0].url, "https://stable2.justinkim.win");
 
     // TODO upload image to edgestore
 
