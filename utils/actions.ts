@@ -1,10 +1,9 @@
 "use server";
 
-import { PATCH } from "@/app/api/prompt/[id]/route";
-import StableAPI from "@/models/stableAPI";
-import { connectToDB } from "./database";
 import Prompt from "@/models/prompt";
+import StableAPI from "@/models/stableAPI";
 import User from "@/models/user";
+import { connectToDB } from "./database";
 import { convertUrl } from "./helperFunctions";
 
 // set the stable diffusions api url
@@ -181,10 +180,8 @@ export async function generateImage(prompt: string, postId: string = null) {
       { prompt: null, tag: null, imageUrl: returnUrl },
       postId
     );
-    // console.log({ newPrompt });
     return returnUrl;
   } catch (error) {
-    // console.log(error);
     return JSON.stringify({ error: "User does not exist." });
   }
 }
