@@ -1,13 +1,13 @@
 import Nav from "@/components/Nav";
 import Provider from "@/components/Provider";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import "@/styles/globals.css";
 import { EdgeStoreProvider } from "@/utils/edgestore";
 import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
-  title: "Stable Prompts",
-  description: "Find and Share prompts for Stable Diffusion",
+  title: "Stable Diffusion Prompts",
+  description:
+    "Find and Share prompts for Stable Diffusion.  Generate your own images with prompt engineering.",
 };
 
 const RootLayout = ({ children }) => {
@@ -17,9 +17,6 @@ const RootLayout = ({ children }) => {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <EdgeStoreProvider>
             <Provider>
-              <div className="main">
-                <div className="gradient"></div>
-              </div>
               <main className="app">
                 <Nav />
                 {children}
