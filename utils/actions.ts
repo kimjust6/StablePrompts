@@ -150,21 +150,17 @@ export async function generateImage(prompt: string, postId: string = null) {
         inpaint_strength: 1,
         inpaint_respective_field: 1,
       },
-      require_base64: true,
+      require_base64: false,
       async_process: false,
     };
 
-    // await connectToDB();
+    await connectToDB();
     // get url for stable diffusions api
-    // const base_url = await StableAPI.findOne({});
+    const base_url = await StableAPI.findOne({});
 
-    // make the stable diffusion api call
-    // webui call
-    // const response = await fetch(`${base_url.url}/sdapi/v1/txt2img`, {
-    //
     const response = await fetch(
-      // `${base_url.url}/v1/generation/text-to-image`,
-      `https://stable2.justinkim.win/v1/generation/text-to-image`,
+      `${base_url.url}/v1/generation/text-to-image`,
+      // `https://stable2.justinkim.win/v1/generation/text-to-image`,
       {
         signal: AbortSignal.timeout(1000 * 20),
         cache: "no-store",
@@ -176,14 +172,7 @@ export async function generateImage(prompt: string, postId: string = null) {
     );
     const image = await response.json(); // parses JSON response into native JavaScript objects
 
-    // const image = [
-    //   {
-    //     url: "http://127.0.0.1:8888/files/2023-12-01/665f61f3-714f-4a18-858a-1e204d57d7ed.png",
-    //     seed: "350553767766078675",
-    //     finish_reason: "SUCCESS",
-    //   },
-    // ];
-    const returnUrl = convertUrl(image[0].url, "https://stable2.justinkim.win");
+    const returnUrl = convertUrl(image[0].url, base_url.url);
 
     // TODO upload image to edgestore
 
