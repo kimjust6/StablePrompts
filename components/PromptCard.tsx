@@ -140,7 +140,7 @@ const PromptCard = ({
                   This may take some time...
                 </span>
 
-                <span className="w-full flex items-center justify-center h-44">
+                <span className="w-full flex items-center justify-center h-[14.1rem]">
                   <Loading />
                 </span>
               </div>
