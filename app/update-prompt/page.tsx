@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
-
 import Form from "@/components/Form";
 import Loading from "@/components/Loading";
+import { useSession } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 const UpdatePrompt = () => {
   // get url parameters
@@ -92,4 +91,10 @@ const UpdatePrompt = () => {
   );
 };
 
-export default UpdatePrompt;
+const SuspenseWrappedUpdatePrompt = () => {
+  <Suspense>
+    <UpdatePrompt />
+  </Suspense>;
+};
+
+export default SuspenseWrappedUpdatePrompt;
