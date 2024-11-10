@@ -1,75 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @layer base {
   :root {
-    /* CSS: .bg-gradient { background: var(--gradient) } */
-    --gradient: #16222a;
-    --background: 217 96.55% 98.26%;
-    --foreground: 217 3.1% 0.52%;
+      /* Light theme base colors using consistent hue of 217 for main colors */
+      --gradient: #16222a;
+      --background: 217 95% 98%;
+      --foreground: 217 10% 5%;
 
-    --muted: 217 3.1% 91.3%;
-    --muted-foreground: 217 1.55% 41.3%;
+      --muted: 252 95% 96%;
+      --muted-foreground: 217 10% 40%;
 
-    --popover: 217 96.55% 98.26%;
-    --popover-foreground: 217 3.1% 0.65%;
+      --popover: 217 95% 98%;
+      --popover-foreground: 217 10% 5%;
 
-    --card: 217 65.2% 91.3%;
-    --card-foreground: 217 3.1% 0.65%;
+      --card: 217 15% 95%;
+      --card-foreground: 217 10% 5%;
 
-    --border: 252 95% 85%;
-    --input: 252 95% 85%;
+      /* Accent colors using consistent hue of 252 */
+      --border: 252 95% 85%;
+      --input: 252 95% 85%;
 
-    --primary: 217 31% 13%;
-    --primary-foreground: 217 0.62% 91.3%;
+      --primary: 217 30% 13%;
+      --primary-foreground: 217 10% 90%;
 
-    --secondary: 217 1.55% 95.65%;
-    --secondary-foreground: 217 2.86% 11.3%;
+      --secondary: 252 95% 94%;
+      --secondary-foreground: 217 10% 10%;
 
-    --accent: 251 95% 92%;
-    --accent-foreground: 217 2.86% 11.3%;
+      --accent: 252 95% 95%;
+      --accent-foreground: 217 10% 10%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+      /* Destructive color kept distinct for clear warning signals */
+      --destructive: 0 85% 60%;
+      --destructive-foreground: 0 0% 98%;
 
-    --ring: 217 31% 13%;
+      --ring: 217 30% 13%;
 
-    --radius: 0.5rem;
+      --radius: 0.5rem;
   }
 
   .dark {
-    /* CSS: .bg-gradient { background: var(--gradient) } */
-    --gradient: #acb6e5;
+      /* Dark theme using consistent hue of 244 for main colors */
+      --gradient: #acb6e5;
+      --background: 244 35% 6%;
+      --foreground: 244 10% 98%;
 
-    --background: 244 33.800000000000004% 6.32%;
-    --foreground: 244 5.2% 98.95%;
+      --muted: 244 25% 24%;
+      --muted-foreground: 244 10% 58%;
 
-    --muted: 244 26% 23.700000000000003%;
-    --muted-foreground: 244 5.2% 57.9%;
+      --popover: 244 55% 10%;
+      --popover-foreground: 244 10% 98%;
 
-    --popover: 244 54.6% 10.27%;
-    --popover-foreground: 244 5.2% 98.95%;
+      --card: 244 55% 10%;
+      --card-foreground: 244 10% 98%;
 
-    --card: 244 54.6% 10.27%;
-    --card-foreground: 244 5.2% 98.95%;
+      /* Accent colors using consistent hue of 252 */
+      --border: 252 95% 85%;
+      --input: 252 95% 85%;
 
-    --border: 252 95% 85%;
-    --input: 252 95% 85%;
+      --primary: 244 50% 79%;
+      --primary-foreground: 244 10% 8%;
 
-    --primary: 244 52% 79%;
-    --primary-foreground: 244 5.2% 7.9%;
+      --secondary: 244 25% 18%;
+      --secondary-foreground: 244 10% 98%;
 
-    --secondary: 244 26% 23.700000000000003%;
-    --secondary-foreground: 244 5.2% 98.95%;
+      --accent: 244 25% 24%;
+      --accent-foreground: 244 10% 98%;
 
-    --accent: 244 26% 23.700000000000003%;
-    --accent-foreground: 244 5.2% 98.95%;
+      /* Destructive color adjusted for dark theme */
+      --destructive: 0 63% 31%;
+      --destructive-foreground: 244 10% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 244 5.2% 98.95%;
-
-    --ring: 244 52% 79%;
+      --ring: 244 50% 79%;
   }
 }
 
