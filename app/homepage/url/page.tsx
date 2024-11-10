@@ -7,7 +7,6 @@ import {
   getStableDiffusionAPIMongoDB,
   setStableDiffusionAPIMongoDB,
 } from "@/utils/actions";
-import { useEdgeStore } from "@/utils/edgestore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -15,7 +14,6 @@ const SetUrl = () => {
   const [Url, setUrl] = useState<string>("");
   const [promptText, setPromptText] = useState<string>("");
   const [myImage, setMyImage] = useState("");
-  const { edgestore } = useEdgeStore();
 
   useEffect(() => {
     const getAPI = async () => {
