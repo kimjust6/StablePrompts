@@ -4,7 +4,8 @@ import { connectToDB } from "@/utils/database";
 import Prompt from "@/models/prompt";
 
 // GET
-export const GET = async (req, { params }) => {
+export const GET = async (req, props) => {
+  const params = await props.params;
   try {
     await connectToDB();
     // find singular prompt with id params.id
@@ -24,7 +25,8 @@ export const GET = async (req, { params }) => {
 };
 
 // PATCH
-export const PATCH = async (req, { params }) => {
+export const PATCH = async (req, props) => {
+  const params = await props.params;
   const { prompt, tag } = await req.json();
 
   try {
@@ -51,7 +53,8 @@ export const PATCH = async (req, { params }) => {
 };
 
 // DELETE
-export const DELETE = async (req, { params }) => {
+export const DELETE = async (req, props) => {
+  const params = await props.params;
   try {
     await connectToDB();
     // find singular prompt with id params.id and delete

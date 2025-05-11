@@ -2,7 +2,8 @@ import User from "@/models/user";
 import { connectToDB } from "@/utils/database";
 
 // pass in url params as well
-export const GET = async (req, { params }) => {
+export const GET = async (req, props) => {
+  const params = await props.params;
   try {
     await connectToDB();
     const myUser = await User.findOne({ _id: params.id });
