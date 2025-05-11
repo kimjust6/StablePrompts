@@ -2,7 +2,8 @@ import { connectToDB } from "@/utils/database";
 import Prompt from "@/models/prompt";
 
 // pass in url params as well
-export const GET = async (req, { params }) => {
+export const GET = async (req, props) => {
+  const params = await props.params;
   try {
     await connectToDB();
     // only get posts from creator with params.id

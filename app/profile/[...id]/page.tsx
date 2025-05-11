@@ -6,9 +6,10 @@ import UserDNE from "@/components/UserDNE";
 import { getPromptByCreatorId, getUserById } from "@/utils/actions";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 
-const userPage = ({ params }) => {
+const userPage = props => {
+  const params = use(props.params);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [firstName, setFirstName] = useState<string>("");
