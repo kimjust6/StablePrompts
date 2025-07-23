@@ -3,8 +3,22 @@
 import Prompt from "@/models/prompt";
 import StableAPI from "@/models/stableAPI";
 import User from "@/models/user";
+import { GoogleGenAI } from "@google/genai";
+import { geminiFlash } from "./constants";
 import { connectToDB } from "./database";
-import { convertUrl } from "./helperFunctions";
+
+export async function generate(prompt: string) {
+  try {
+    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    const response = await ai.models.generateContent({
+      model: geminiFlash,
+      contents: "Explain how AI works in a few words",
+    });
+    return response.text;
+  } catch (error) {
+    console.error("Error generating content:", error);
+  }
+}
 
 // set the stable diffusions api url
 export async function setStableDiffusionAPIMongoDB(url: string) {
