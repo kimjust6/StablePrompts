@@ -1,18 +1,20 @@
 "use client";
 
 import Feed from "@/components/Feed";
-import { generate } from "@/utils/actions";
+import { generateGeminiImage } from "@/utils/actions";
 import { useEffect } from "react";
 
 const Home = () => {
-  useEffect(() => {
-    let response;
-    const data = async () => {
-      response = await generate("");
-      console.log(response);
-    };
-    data();
-  }, []);
+  // useEffect(() => {
+  //   let response;
+  //   const data = async () => {
+  //     response = await generateGeminiImage(
+  //       "Shrek riding a horse in a futuristic city"
+  //     );
+  //     console.log({ response: response });
+  //   };
+  //   data();
+  // }, []);
 
   return (
     <section className="flex w-full flex-col items-center">

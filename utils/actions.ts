@@ -3,20 +3,36 @@
 import Prompt from "@/models/prompt";
 import StableAPI from "@/models/stableAPI";
 import User from "@/models/user";
-import { GoogleGenAI } from "@google/genai";
-import { geminiFlash } from "./constants";
+import { GoogleGenAI, Modality } from "@google/genai";
+import { geminiFlashImage } from "./constants";
 import { connectToDB } from "./database";
+import fs from "fs";
 
-export async function generate(prompt: string) {
+export async function generateGeminiImage(userPrompt: string) {
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-    const response = await ai.models.generateContent({
-      model: geminiFlash,
-      contents: "Explain how AI works in a few words",
+    const ai = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY!,
     });
-    return response.text;
+
+    const response = await ai.models.generateContent({
+      model: geminiFlashImage,
+      contents: `Please create an image based on this description: ${userPrompt}`,
+      config: {
+        responseModalities: [Modality.TEXT, Modality.IMAGE],
+      },
+    });
+    let image = "";
+    for (const part of response.candidates[0].content.parts) {
+      // Based on the part type, either show the text or save the image
+      if (part.inlineData) {
+        const imageData = part.inlineData.data;
+        image += imageData;
+      }
+    }
+    return image;
   } catch (error) {
-    console.error("Error generating content:", error);
+    console.error("Error generating image:", error);
+    return null;
   }
 }
 
