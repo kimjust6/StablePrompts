@@ -11,15 +11,16 @@ const Nav = () => {
   return path == "/home" ? (
     ""
   ) : (
-    <section className="w-full flex flex-row justify-between  items-center py-2">
-      <nav className="flex-between w-full ">
+    <section className="flex w-full flex-row items-center justify-between py-2">
+      <nav className="flex-between w-full">
         <Link
           href="/homepage"
-          className="flex gap-2 items-center justify-center">
+          className="flex items-center justify-center gap-2">
           <Image
             src="/assets/images/logo.svg"
             width={45}
             height={45}
+            priority
             alt="logo"
           />
           <p className="logo_text">Stable Prompts</p>
