@@ -3,11 +3,10 @@ import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  generateImage,
+  generateFoocusImage,
   getStableDiffusionAPIMongoDB,
   setStableDiffusionAPIMongoDB,
 } from "@/utils/actions";
-import { useEdgeStore } from "@/utils/edgestore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -15,7 +14,6 @@ const SetUrl = () => {
   const [Url, setUrl] = useState<string>("");
   const [promptText, setPromptText] = useState<string>("");
   const [myImage, setMyImage] = useState("");
-  const { edgestore } = useEdgeStore();
 
   useEffect(() => {
     const getAPI = async () => {
@@ -28,9 +26,9 @@ const SetUrl = () => {
     getAPI();
   }, []);
   return (
-    <section className="mt-20 flex flex-col justify-center items-center gap-4">
+    <section className="mt-20 flex flex-col items-center justify-center gap-4">
       <form
-        className="flex gap-4 w-96"
+        className="flex w-96 gap-4"
         onSubmit={async (event) => {
           event.preventDefault();
           setStableDiffusionAPIMongoDB(Url);
@@ -46,14 +44,12 @@ const SetUrl = () => {
         <Button>Submit</Button>
       </form>
       <form
-        className="flex gap-4 w-96"
+        className="flex w-96 gap-4"
         onSubmit={async (event) => {
           event.preventDefault();
           setMyImage(null);
-          const response = await generateImage(promptText);
+          const response = await generateFoocusImage(promptText);
           setMyImage(response);
-
-          
         }}>
         <Input
           type="text"

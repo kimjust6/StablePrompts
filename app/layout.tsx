@@ -2,7 +2,6 @@ import Nav from "@/components/Nav";
 import Provider from "@/components/Provider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "@/styles/globals.css";
-import { EdgeStoreProvider } from "@/utils/edgestore";
 import { Analytics } from "@vercel/analytics/react";
 export const metadata = {
   title: "Stable Diffusion Prompts",
@@ -15,7 +14,6 @@ const RootLayout = ({ children }) => {
     <html lang="en" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <EdgeStoreProvider>
             <Provider>
               <main className="app">
                 <Nav />
@@ -23,7 +21,6 @@ const RootLayout = ({ children }) => {
                 {/* <Analytics /> */}
               </main>
             </Provider>
-          </EdgeStoreProvider>
         </ThemeProvider>
       </body>
     </html>
