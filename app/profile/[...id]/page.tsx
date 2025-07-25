@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, use } from "react";
 
-const userPage = props => {
+const userPage = (props) => {
   const params = use(props.params);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

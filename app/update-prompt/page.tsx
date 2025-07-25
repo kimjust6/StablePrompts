@@ -29,6 +29,7 @@ const UpdatePrompt = () => {
   useEffect(() => {
     const getPromptDetails = async () => {
       try {
+        console.log("Fetching post data for ID:", postId);
         // on load, get the post data
         const response = await fetch(`/api/prompt/${postId}`, {
           cache: "no-store",
@@ -91,10 +92,9 @@ const UpdatePrompt = () => {
   );
 };
 
-const SuspenseWrappedUpdatePrompt = () => {
+const SuspenseWrappedUpdatePrompt = () => (
   <Suspense>
     <UpdatePrompt />
-  </Suspense>;
-};
-
+  </Suspense>
+);
 export default SuspenseWrappedUpdatePrompt;

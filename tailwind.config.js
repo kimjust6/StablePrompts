@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: "jit",
   darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,9 +11,6 @@ module.exports = {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        // "2xl": "1600px",
-      },
     },
     extend: {
       backgroundImage: {
