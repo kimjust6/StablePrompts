@@ -6,9 +6,9 @@ import User from "@/models/user";
 import { GoogleGenAI, Modality } from "@google/genai";
 import { geminiFlashImage } from "./constants";
 import { connectToDB } from "./database";
-import fs from "fs";
+import { PromptData } from "./Interfaces";
 
-export async function generateGeminiImage(userPrompt: string) {
+async function generateGeminiImage(userPrompt: string) {
   try {
     const ai = new GoogleGenAI({
       apiKey: process.env.GEMINI_API_KEY!,
@@ -34,6 +34,16 @@ export async function generateGeminiImage(userPrompt: string) {
     console.error("Error generating image:", error);
     return null;
   }
+}
+
+export async function generateGeminiImageAndSaveToDb(
+  userPrompt: string,
+  postId: string = null
+) {
+  const image = await generateGeminiImage(userPrompt);
+  // save result to mongodb
+  await updatePrompt({ prompt: null, tag: null, imageUrl: image }, postId);
+  return image;
 }
 
 // set the stable diffusions api url
@@ -124,7 +134,10 @@ export async function getUserById(id: string) {
   }
 }
 
-export async function generateImage(prompt: string, postId: string = null) {
+export async function generateFoocusImage(
+  prompt: string,
+  postId: string = null
+) {
   try {
     // data for the image generation api call
     const data = {
@@ -183,13 +196,11 @@ export async function generateImage(prompt: string, postId: string = null) {
       async_process: false,
     };
 
-    await connectToDB();
     // get url for stable diffusions api
     const base_url = await StableAPI.findOne({});
 
     const response = await fetch(
       `${base_url.url}/v1/generation/text-to-image`,
-      // `https://stable2.justinkim.win/v1/generation/text-to-image`,
       {
         cache: "no-store",
         method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -200,7 +211,6 @@ export async function generateImage(prompt: string, postId: string = null) {
     );
     const image = await response.json(); // parses JSON response into native JavaScript objects
 
-    // const returnUrl = convertUrl(image[0].url, base_url.url);
     const returnUrl = image[0].base64;
 
     // save result to mongodb
@@ -214,27 +224,21 @@ export async function generateImage(prompt: string, postId: string = null) {
   }
 }
 
-interface PromptData {
-  prompt: string;
-  tag: string;
-  imageUrl: string;
-}
-
 export async function updatePrompt(prompt: PromptData, id: string) {
   try {
     await connectToDB();
     // find singular prompt with id params.id
     const existingPrompt = await Prompt.findById(id);
 
-    // case where prompt does not exist
     if (!existingPrompt) {
       return JSON.stringify({ error: "Prompt does not exist." });
     }
+
     // update prompt
-    prompt?.prompt ? (existingPrompt.prompt = prompt.prompt) : "";
-    prompt?.tag ? (existingPrompt.tag = prompt.tag) : "";
-    prompt?.imageUrl ? (existingPrompt.imageUrl = prompt.imageUrl) : "";
-    // console.log({ existingPrompt });
+    prompt?.prompt && (existingPrompt.prompt = prompt.prompt);
+    prompt?.tag && (existingPrompt.tag = prompt.tag);
+    prompt?.imageUrl && (existingPrompt.imageUrl = prompt.imageUrl);
+
     await existingPrompt.save();
     // success case
     return JSON.stringify(existingPrompt);

@@ -8,8 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { generateImage } from "@/utils/actions";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { generateGeminiImageAndSaveToDb } from "@/utils/actions";
 import { Check, Copy } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -60,18 +59,18 @@ const PromptCard = ({
   return (
     <Card className="prompt_card">
       <CardHeader>
-        <CardTitle className="flex justify-between ">
-          <div className="flex w-full items-center gap-4 ">
+        <CardTitle className="flex justify-between">
+          <div className="flex w-full items-center gap-4">
             <Image
               src={post?.creator?.image}
               alt="userImage"
               width={40}
               height={40}
               onClick={profileClickHelper}
-              className="rounded-full object-contain cursor-pointer"
+              className="cursor-pointer rounded-full object-contain"
             />
             <div onClick={profileClickHelper} className="cursor-pointer">
-              <h3 className="font-semibold ">
+              <h3 className="font-semibold">
                 {post?.creator?.fName} {post?.creator?.lName}
               </h3>
               <p className="font-inter text-sm text-muted-foreground"></p>
@@ -95,12 +94,12 @@ const PromptCard = ({
       <CardContent>
         <p className="font-satoshi text-md text-foreground">{post.prompt}</p>
       </CardContent>
-      <CardFooter className="flex flex-col w-full items-start">
+      <CardFooter className="flex w-full flex-col items-start">
         <p
           className={
-            "font-inter text-md text-violet-500 -mt-4 -mb-2 " +
+            "font-inter text-md -mb-2 -mt-4 text-violet-500 " +
             (pathName === "/homepage"
-              ? " hover:text-violet-700 hover:underline cursor-pointer"
+              ? " cursor-pointer hover:text-violet-700 hover:underline"
               : "")
           }
           onClick={() => {
@@ -110,12 +109,12 @@ const PromptCard = ({
           {post.tag}
         </p>
         {session?.user.id === post?.creator?._id && pathName === "/profile" ? (
-          <div className="w-full ">
-            <Separator className="mt-5 mb-2 " />
+          <div className="w-full">
+            <Separator className="mb-2 mt-5" />
             <div className="flex w-full justify-center gap-10">
               <Button
                 variant="link"
-                className="text-card-foreground/90 -mb-5 -mt-1"
+                className="-mb-5 -mt-1 text-card-foreground/90"
                 onClick={() => {
                   handleEdit(post);
                 }}>
@@ -123,7 +122,7 @@ const PromptCard = ({
               </Button>
               <Button
                 variant="link"
-                className="text-destructive dark:text-red-500 -mb-5 -mt-1 "
+                className="-mb-5 -mt-1 text-destructive dark:text-red-500"
                 onClick={() => {
                   handleDelete(post);
                 }}>
@@ -132,15 +131,15 @@ const PromptCard = ({
             </div>
           </div>
         ) : (
-          <div className="w-full ">
+          <div className="w-full">
             <Separator className="mt-5" />
             {myImage == null && (
               <div>
-                <span className="w-full flex justify-center items center mt-2 text-muted-foreground">
+                <span className="items center mt-2 flex w-full justify-center text-muted-foreground">
                   This may take some time...
                 </span>
 
-                <span className="w-full flex items-center justify-center h-[14.1rem]">
+                <span className="flex h-[14.1rem] w-full items-center justify-center">
                   <Loading />
                 </span>
               </div>
@@ -157,13 +156,13 @@ const PromptCard = ({
             ) : (
               <></>
             )}
-            <div className="flex w-full justify-center gap-10 mt-5 mb-3">
+            <div className="mb-3 mt-5 flex w-full justify-center gap-10">
               <Button
                 variant="ghost"
-                className="text-card-foreground/90 -mb-5 -mt-1 border"
+                className="-mb-5 -mt-1 border text-card-foreground/90"
                 onClick={async () => {
                   setMyImage(null);
-                  const response = await generateImage(
+                  const response = await generateGeminiImageAndSaveToDb(
                     post.prompt,
                     post._id.toString()
                   );
