@@ -1,37 +1,42 @@
 "use server";
 
 import Prompt from "@/models/prompt";
-import StableAPI from "@/models/stableAPI";
 import User from "@/models/user";
-import { GoogleGenAI, Modality } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 import { geminiFlashImage } from "./constants";
 import { connectToDB } from "./database";
 import { PromptData } from "./Interfaces";
 
 async function generateGeminiImage(userPrompt: string) {
   try {
+    if (!process.env.GEMINI_API_KEY) {
+      return null;
+    }
+
     const ai = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY!,
+      apiKey: process.env.GEMINI_API_KEY,
     });
 
     const response = await ai.models.generateContent({
       model: geminiFlashImage,
-      contents: `Please create an image based on this description: ${userPrompt}`,
-      config: {
-        responseModalities: [Modality.TEXT, Modality.IMAGE],
-      },
+      contents: userPrompt,
     });
+
     let image = "";
-    for (const part of response.candidates[0].content.parts) {
-      // Based on the part type, either show the text or save the image
-      if (part.inlineData) {
-        const imageData = part.inlineData.data;
-        image += imageData;
+    if (response.candidates && response.candidates[0]?.content?.parts) {
+      for (const part of response.candidates[0].content.parts) {
+        if (part.inlineData && part.inlineData.data) {
+          image += part.inlineData.data;
+        }
       }
     }
-    return image;
-  } catch (error) {
-    console.error("Error generating image:", error);
+
+    if (image) {
+      return image;
+    } else {
+      return null;
+    }
+  } catch (error: any) {
     return null;
   }
 }
@@ -40,45 +45,20 @@ export async function generateGeminiImageAndSaveToDb(
   userPrompt: string,
   postId: string = null
 ) {
-  const image = await generateGeminiImage(userPrompt);
-  // save result to mongodb
-  await updatePrompt({ prompt: null, tag: null, imageUrl: image }, postId);
-  return image;
-}
-
-// set the stable diffusions api url
-export async function setStableDiffusionAPIMongoDB(url: string) {
   try {
-    await connectToDB();
-    const response = await StableAPI.find({});
-    if (response.length == 1) {
-      const existingStableAPI = await StableAPI.findById(response[0]._id);
-      existingStableAPI.url = url;
-      await existingStableAPI.save();
-    } else {
-      if (response.length > 1) {
-        await StableAPI.deleteMany({});
-      }
-      const newStableAPI = new StableAPI({
-        url: url,
-      });
-      newStableAPI.save();
+    const image = await generateGeminiImage(userPrompt);
+
+    if (!image) {
+      return null;
     }
-  } catch (error) {
-    console.log(error);
-    return JSON.stringify({ error: "Error: Failed to update url." });
-  }
-}
 
-// get the stable diffusions api url
-export async function getStableDiffusionAPIMongoDB() {
-  try {
-    await connectToDB();
-    const response = await StableAPI.findOne({});
-    return JSON.stringify(response);
+    if (postId) {
+      await updatePrompt({ prompt: null, tag: null, imageUrl: image }, postId);
+    }
+
+    return image;
   } catch (error) {
-    console.log(error);
-    return JSON.stringify({ error: "Error: Failed to update url." });
+    return null;
   }
 }
 
@@ -90,8 +70,7 @@ export async function getAllPrompts() {
 
     return JSON.stringify(prompts);
   } catch (error) {
-    console.log(error);
-    JSON.stringify({ error: "Could not get all Prompts." });
+    return JSON.stringify({ error: "Could not get all Prompts." });
   }
 }
 
@@ -110,7 +89,6 @@ export async function getPromptByCreatorId(id: string) {
     // success case
     return JSON.stringify(prompt);
   } catch (error) {
-    console.log(error);
     return JSON.stringify({ error: "User has no Prompts." });
   }
 }
@@ -128,97 +106,6 @@ export async function getUserById(id: string) {
 
     // success case
     return JSON.stringify(UseInfo);
-  } catch (error) {
-    console.log(error);
-    return JSON.stringify({ error: "User does not exist." });
-  }
-}
-
-export async function generateFoocusImage(
-  prompt: string,
-  postId: string = null
-) {
-  try {
-    // data for the image generation api call
-    const data = {
-      prompt: prompt,
-      negative_prompt: "",
-      style_selections: ["Fooocus V2", "Fooocus Enhance", "Fooocus Sharp"],
-      performance_selection: "Extreme Speed",
-      aspect_ratios_selection: "1152×896",
-      image_number: 1,
-      image_seed: -1,
-      sharpness: 2,
-      guidance_scale: 4,
-      base_model_name: "juggernautXL_version6Rundiffusion.safetensors",
-      refiner_model_name: "None",
-      refiner_switch: 0.5,
-      loras: [
-        {
-          model_name: "sd_xl_offset_example-lora_1.0.safetensors",
-          weight: 0.1,
-        },
-      ],
-      advanced_params: {
-        disable_preview: false,
-        adm_scaler_positive: 1.5,
-        adm_scaler_negative: 0.8,
-        adm_scaler_end: 0.3,
-        refiner_swap_method: "joint",
-        adaptive_cfg: 7,
-        sampler_name: "dpmpp_2m_sde_gpu",
-        scheduler_name: "karras",
-        overwrite_step: -1,
-        overwrite_switch: -1,
-        overwrite_width: 576,
-        overwrite_height: 448,
-        overwrite_vary_strength: -1,
-        overwrite_upscale_strength: -1,
-        mixing_image_prompt_and_vary_upscale: false,
-        mixing_image_prompt_and_inpaint: false,
-        debugging_cn_preprocessor: false,
-        skipping_cn_preprocessor: false,
-        controlnet_softness: 0.25,
-        canny_low_threshold: 64,
-        canny_high_threshold: 128,
-        freeu_enabled: false,
-        freeu_b1: 1.01,
-        freeu_b2: 1.02,
-        freeu_s1: 0.99,
-        freeu_s2: 0.95,
-        debugging_inpaint_preprocessor: false,
-        inpaint_disable_initial_latent: false,
-        inpaint_engine: "v1",
-        inpaint_strength: 1,
-        inpaint_respective_field: 1,
-      },
-      require_base64: true,
-      async_process: false,
-    };
-
-    // get url for stable diffusions api
-    const base_url = await StableAPI.findOne({});
-
-    const response = await fetch(
-      `${base_url.url}/v1/generation/text-to-image`,
-      {
-        cache: "no-store",
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        headers: new Headers({ "content-type": "application/json" }),
-        mode: "no-cors",
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
-      }
-    );
-    const image = await response.json(); // parses JSON response into native JavaScript objects
-
-    const returnUrl = image[0].base64;
-
-    // save result to mongodb
-    await updatePrompt(
-      { prompt: null, tag: null, imageUrl: returnUrl },
-      postId
-    );
-    return returnUrl;
   } catch (error) {
     return JSON.stringify({ error: "User does not exist." });
   }
@@ -243,7 +130,6 @@ export async function updatePrompt(prompt: PromptData, id: string) {
     // success case
     return JSON.stringify(existingPrompt);
   } catch (error) {
-    console.log(error);
     return JSON.stringify({ error: "Failed to update Prompt." });
   }
 }

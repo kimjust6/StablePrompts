@@ -17,6 +17,7 @@ import { useState } from "react";
 import Loading from "./Loading";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { is } from "date-fns/locale";
 
 interface PromptCardProps {
   key?: String;
@@ -33,6 +34,7 @@ const PromptCard = ({
   handleDelete,
 }: PromptCardProps) => {
   const [copiedPost, setCopiedPost] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { data: session, status } = useSession();
   const [myImage, setMyImage] = useState(post?.imageUrl);
   // get path of url
@@ -133,7 +135,7 @@ const PromptCard = ({
         ) : (
           <div className="w-full">
             <Separator className="mt-5" />
-            {myImage == null && (
+            {isLoading && (
               <div>
                 <span className="items center mt-2 flex w-full justify-center text-muted-foreground">
                   This may take some time...
@@ -144,7 +146,7 @@ const PromptCard = ({
                 </span>
               </div>
             )}
-            {myImage ? (
+            {!isLoading && myImage ? (
               <Image
                 className="mt-4"
                 alt="ai generated image"
@@ -162,13 +164,15 @@ const PromptCard = ({
                 className="-mb-5 -mt-1 border text-card-foreground/90"
                 onClick={async () => {
                   setMyImage(null);
+                  setIsLoading(true);
                   const response = await generateGeminiImageAndSaveToDb(
                     post.prompt,
                     post._id.toString()
                   );
                   setMyImage(response);
+                  setIsLoading(false);
                 }}
-                disabled={myImage == null}>
+                disabled={isLoading}>
                 {myImage === "" ? (
                   "Generate Image"
                 ) : myImage === null ? (
