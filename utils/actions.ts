@@ -3,7 +3,7 @@
 import Prompt from "@/models/prompt";
 import StableAPI from "@/models/stableAPI";
 import User from "@/models/user";
-import { GoogleGenAI, Modality } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 import { geminiFlashImage } from "./constants";
 import { connectToDB } from "./database";
 import { PromptData } from "./Interfaces";
@@ -17,11 +17,10 @@ async function generateGeminiImage(userPrompt: string) {
     const response = await ai.models.generateContent({
       model: geminiFlashImage,
       contents: `Please create an image based on this description: ${userPrompt}`,
-      config: {
-        responseModalities: [Modality.TEXT, Modality.IMAGE],
-      },
     });
+
     let image = "";
+    // Access parts from candidates
     for (const part of response.candidates[0].content.parts) {
       // Based on the part type, either show the text or save the image
       if (part.inlineData) {
