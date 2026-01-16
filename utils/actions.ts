@@ -66,7 +66,7 @@ export async function generateGeminiImageAndSaveToDb(
 export async function getAllPrompts() {
   try {
     await connectToDB();
-    const prompts = await Prompt.find({}).populate("creator");
+    const prompts = await Prompt.find({}).populate("creator").select("-imageUrl");
 
     return JSON.stringify(prompts);
   } catch (error) {
@@ -131,5 +131,15 @@ export async function updatePrompt(prompt: PromptData, id: string) {
     return JSON.stringify(existingPrompt);
   } catch (error) {
     return JSON.stringify({ error: "Failed to update Prompt." });
+  }
+}
+
+export async function getPromptImage(id: string) {
+  try {
+    await connectToDB();
+    const prompt = await Prompt.findById(id).select("imageUrl");
+    return prompt?.imageUrl;
+  } catch (error) {
+    return null;
   }
 }
