@@ -18,13 +18,13 @@ import Loading from "./Loading";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { is } from "date-fns/locale";
+import { IPrompt } from "@/utils/Interfaces";
 
 interface PromptCardProps {
-  key?: String;
-  post: any;
-  handleTagClick?: any;
-  handleDelete?: any;
-  handleEdit?: any;
+  post: IPrompt;
+  handleTagClick?: (tag: string) => void;
+  handleDelete?: (post: IPrompt) => void;
+  handleEdit?: (post: IPrompt) => void;
 }
 
 const PromptCard = ({

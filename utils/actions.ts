@@ -36,14 +36,14 @@ async function generateGeminiImage(userPrompt: string) {
     } else {
       return null;
     }
-  } catch (error: any) {
+  } catch (error) {
     return null;
   }
 }
 
 export async function generateGeminiImageAndSaveToDb(
   userPrompt: string,
-  postId: string = null
+  postId: string | null = null
 ) {
   try {
     const image = await generateGeminiImage(userPrompt);
@@ -53,17 +53,18 @@ export async function generateGeminiImageAndSaveToDb(
     }
 
     if (postId) {
-      await updatePrompt({ prompt: null, tag: null, imageUrl: image }, postId);
+      await updatePrompt({ prompt: null, tag: null, imageUrl: image } as PromptData, postId);
     }
 
     return image;
   } catch (error) {
+    console.error("Error generating image:", error);
     return null;
   }
 }
 
 // get all prompts
-export async function getAllPrompts() {
+export async function getAllPrompts(): Promise<string> {
   try {
     await connectToDB();
     const prompts = await Prompt.find({}).populate("creator").select("-imageUrl");
@@ -75,7 +76,7 @@ export async function getAllPrompts() {
 }
 
 // get prompts by creator id
-export async function getPromptByCreatorId(id: string) {
+export async function getPromptByCreatorId(id: string): Promise<string> {
   try {
     await connectToDB();
     // find singular prompt with id params.id
@@ -93,7 +94,7 @@ export async function getPromptByCreatorId(id: string) {
   }
 }
 
-export async function getUserById(id: string) {
+export async function getUserById(id: string): Promise<string> {
   try {
     await connectToDB();
     // find singular prompt with id params.id
@@ -111,7 +112,7 @@ export async function getUserById(id: string) {
   }
 }
 
-export async function updatePrompt(prompt: PromptData, id: string) {
+export async function updatePrompt(prompt: PromptData, id: string): Promise<string> {
   try {
     await connectToDB();
     // find singular prompt with id params.id
@@ -134,7 +135,7 @@ export async function updatePrompt(prompt: PromptData, id: string) {
   }
 }
 
-export async function getPromptImage(id: string) {
+export async function getPromptImage(id: string): Promise<string | null> {
   try {
     await connectToDB();
     const prompt = await Prompt.findById(id).select("imageUrl");
