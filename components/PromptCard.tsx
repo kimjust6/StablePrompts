@@ -8,23 +8,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { generateGeminiImageAndSaveToDb } from "@/utils/actions";
+import { generateGeminiImageAndSaveToDb, getPromptImage } from "@/utils/actions";
 import { Check, Copy } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Loading from "./Loading";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
 import { is } from "date-fns/locale";
+import { IPrompt } from "@/utils/Interfaces";
 
 interface PromptCardProps {
-  key?: String;
-  post: any;
-  handleTagClick?: any;
-  handleDelete?: any;
-  handleEdit?: any;
+  post: IPrompt;
+  handleTagClick?: (tag: string) => void;
+  handleDelete?: (post: IPrompt) => void;
+  handleEdit?: (post: IPrompt) => void;
 }
 
 const PromptCard = ({
@@ -36,7 +36,22 @@ const PromptCard = ({
   const [copiedPost, setCopiedPost] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { data: session, status } = useSession();
-  const [myImage, setMyImage] = useState(post?.imageUrl);
+  const [myImage, setMyImage] = useState(post?.imageUrl || null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (!post.imageUrl && post._id) {
+        setIsLoading(true);
+        const image = await getPromptImage(post._id);
+        if (image) {
+          setMyImage(image);
+        }
+        setIsLoading(false);
+      }
+    };
+    fetchImage();
+  }, [post.imageUrl, post._id]);
+
   // get path of url
   const pathName = usePathname();
   const router = useRouter();
@@ -153,7 +168,7 @@ const PromptCard = ({
                 width="512"
                 height="512"
                 src={`data:image/png;base64,${myImage}`}
-                // src={myImage}
+              // src={myImage}
               />
             ) : (
               <></>
