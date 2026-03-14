@@ -12,6 +12,7 @@ async function generateGeminiImage(userPrompt: string) {
   try {
     const ai = new GoogleGenAI({
       apiKey: process.env.GEMINI_API_KEY!,
+      httpOptions: { apiVersion: "v1alpha" },
     });
 
     const response = await ai.models.generateContent({
