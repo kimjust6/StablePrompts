@@ -1,34 +1,64 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# StablePrompts
 
-## Getting Started
+StablePrompts is a web application utilizing Next.js, developed to facilitate the discovery, creation, and distribution of artificial intelligence prompts. The platform provides a streamlined interface for efficient prompt management and image synthesis via the Google Gemini API.
 
-First, run the development server:
+## Core Functionalities
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- **Prompt Discovery**: Access a comprehensive registry of community-generated prompts.
+- **Image Synthesis**: Generate visual assets from textual descriptions utilizing the Google Gemini Flash model.
+- **User Management**: Dedicated user profiles for portfolio management and prompt sharing.
+- **Advanced Search**: Filter and retrieve prompts based on tags, keywords, or content attributes.
+- **Performance Optimization**: Implements lazy loading architectures to enhance initial payload delivery and rendering performance.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Installation and Configuration
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### System Requirements
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Node.js (v18.0.0 or later)
+- MongoDB Instance
+- Google Cloud Project with Gemini API Access
 
-## Learn More
+### Deployment Instructions
 
-To learn more about Next.js, take a look at the following resources:
+1.  **Repository Cloning**:
+    ```bash
+    git clone https://github.com/kimjust6/StablePrompts.git
+    cd StablePrompts
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2.  **Dependency Installation**:
+    ```bash
+    npm install
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+3.  **Environment Configuration**:
+    Establish a `.env` file in the root directory containing the following credentials:
+    ```
+    GOOGLE_ID=your_google_client_id
+    GOOGLE_CLIENT_SECRET=your_google_client_secret
+    MONGODB_URI=your_mongodb_connection_string
+    NEXTAUTH_URL=http://localhost:3000
+    NEXTAUTH_SECRET=your_nextauth_secret
+    GEMINI_API_KEY=your_gemini_api_key
+    ```
 
-## Deploy on Vercel
+4.  **Application Startup**:
+    Execute the development server:
+    ```bash
+    npm run dev
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5.  **Access**:
+    Navigate to [http://localhost:3000](http://localhost:3000) in a supported web browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Technical Stack
+
+- **Framework**: Next.js 15
+- **Styling Architecture**: Tailwind CSS
+- **Database**: MongoDB (Mongoose ODM)
+- **Authentication System**: NextAuth.js
+- **AI Integration**: Google Gemini Flash
+
+## Contribution Guidelines
+
+Contributions are encouraged. Please submit issues or pull requests to the repository for feature enhancements or defect resolution.

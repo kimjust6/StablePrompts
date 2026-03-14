@@ -6,11 +6,12 @@ import Loading from "./Loading";
 import PromptCard from "./PromptCard";
 import { Input } from "./ui/input";
 import PromptCardList from "./PromptCardList";
+import { IPrompt } from "@/utils/Interfaces";
 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
-  const [posts, setPosts] = useState(null);
-  const [allPosts, setAllPosts] = useState(null);
+  const [posts, setPosts] = useState<IPrompt[] | null>(null);
+  const [allPosts, setAllPosts] = useState<IPrompt[] | null>(null);
 
 
 
@@ -81,8 +82,8 @@ const Feed = () => {
             <PromptCard
               key={post._id}
               post={post}
-              handleDelete={() => {}}
-              handleEdit={() => {}}
+              handleDelete={() => { }}
+              handleEdit={() => { }}
               handleTagClick={searchOnChange}
             />
           ))}

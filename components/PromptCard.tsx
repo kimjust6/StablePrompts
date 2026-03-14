@@ -8,22 +8,23 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { generateGeminiImageAndSaveToDb } from "@/utils/actions";
+import { generateGeminiImageAndSaveToDb, getPromptImage } from "@/utils/actions";
 import { Check, Copy } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Loading from "./Loading";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { is } from "date-fns/locale";
+import { IPrompt } from "@/utils/Interfaces";
 
 interface PromptCardProps {
-  key?: String;
-  post: any;
-  handleTagClick?: any;
-  handleDelete?: any;
-  handleEdit?: any;
+  post: IPrompt;
+  handleTagClick?: (tag: string) => void;
+  handleDelete?: (post: IPrompt) => void;
+  handleEdit?: (post: IPrompt) => void;
 }
 
 const PromptCard = ({
@@ -33,8 +34,24 @@ const PromptCard = ({
   handleDelete,
 }: PromptCardProps) => {
   const [copiedPost, setCopiedPost] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { data: session, status } = useSession();
-  const [myImage, setMyImage] = useState(post?.imageUrl);
+  const [myImage, setMyImage] = useState(post?.imageUrl || null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      if (!post.imageUrl && post._id) {
+        setIsLoading(true);
+        const image = await getPromptImage(post._id);
+        if (image) {
+          setMyImage(image);
+        }
+        setIsLoading(false);
+      }
+    };
+    fetchImage();
+  }, [post.imageUrl, post._id]);
+
   // get path of url
   const pathName = usePathname();
   const router = useRouter();
@@ -133,7 +150,7 @@ const PromptCard = ({
         ) : (
           <div className="w-full">
             <Separator className="mt-5" />
-            {myImage == null && (
+            {isLoading && (
               <div>
                 <span className="items center mt-2 flex w-full justify-center text-muted-foreground">
                   This may take some time...
@@ -144,14 +161,14 @@ const PromptCard = ({
                 </span>
               </div>
             )}
-            {myImage ? (
+            {!isLoading && myImage ? (
               <Image
                 className="mt-4"
                 alt="ai generated image"
                 width="512"
                 height="512"
                 src={`data:image/png;base64,${myImage}`}
-                // src={myImage}
+              // src={myImage}
               />
             ) : (
               <></>
@@ -162,13 +179,15 @@ const PromptCard = ({
                 className="-mb-5 -mt-1 border text-card-foreground/90"
                 onClick={async () => {
                   setMyImage(null);
+                  setIsLoading(true);
                   const response = await generateGeminiImageAndSaveToDb(
                     post.prompt,
                     post._id.toString()
                   );
                   setMyImage(response);
+                  setIsLoading(false);
                 }}
-                disabled={myImage == null}>
+                disabled={isLoading}>
                 {myImage === "" ? (
                   "Generate Image"
                 ) : myImage === null ? (
