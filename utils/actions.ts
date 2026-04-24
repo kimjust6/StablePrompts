@@ -10,7 +10,7 @@ import { PromptData } from "./Interfaces";
 async function generateGeminiImage(userPrompt: string) {
   try {
     if (!process.env.GEMINI_API_KEY) {
-      return null;
+      return { error: "GEMINI_API_KEY is missing." };
     }
 
     const ai = new GoogleGenAI({
@@ -33,12 +33,18 @@ async function generateGeminiImage(userPrompt: string) {
     }
 
     if (image) {
-      return image;
+      return { image };
     } else {
-      return null;
+      return { error: "No image was generated." };
     }
-  } catch (error) {
-    return null;
+  } catch (error: any) {
+    let errorMessage = "Unknown API Error";
+    if (error && error.status === 429) {
+      errorMessage = "Your project has exceeded its monthly spending cap on the Gemini API.";
+    } else if (error && error.message) {
+      errorMessage = error.message;
+    }
+    return { error: errorMessage };
   }
 }
 
@@ -47,20 +53,24 @@ export async function generateGeminiImageAndSaveToDb(
   postId: string | null = null
 ) {
   try {
-    const image = await generateGeminiImage(userPrompt);
+    const response = await generateGeminiImage(userPrompt);
 
-    if (!image) {
-      return null;
+    if (response.error) {
+      return { error: response.error };
+    }
+
+    if (!response.image) {
+      return { error: "Unknown error: No image returned." };
     }
 
     if (postId) {
-      await updatePrompt({ prompt: null, tag: null, imageUrl: image } as PromptData, postId);
+      await updatePrompt({ prompt: null, tag: null, imageUrl: response.image } as PromptData, postId);
     }
 
-    return image;
-  } catch (error) {
+    return { image: response.image };
+  } catch (error: any) {
     console.error("Error generating image:", error);
-    return null;
+    return { error: error.message || "Failed to save generated image." };
   }
 }
 
@@ -68,7 +78,7 @@ export async function generateGeminiImageAndSaveToDb(
 export async function getAllPrompts(): Promise<string> {
   try {
     await connectToDB();
-    const prompts = await Prompt.find({}).populate("creator").select("-imageUrl");
+    const prompts = await Prompt.find({}).sort({ _id: -1 }).populate("creator").select("-imageUrl");
 
     return JSON.stringify(prompts);
   } catch (error) {
@@ -81,7 +91,7 @@ export async function getPromptByCreatorId(id: string): Promise<string> {
   try {
     await connectToDB();
     // find singular prompt with id params.id
-    const prompt = await Prompt.find({ creator: id }).populate("creator");
+    const prompt = await Prompt.find({ creator: id }).sort({ _id: -1 }).populate("creator");
 
     // case where prompt does not exist
     if (!prompt) {

@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { generateGeminiImageAndSaveToDb, getPromptImage } from "@/utils/actions";
+import { useToast } from "@/components/ui/use-toast";
 import { Check, Copy } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -37,6 +38,7 @@ const PromptCard = ({
   const [isLoading, setIsLoading] = useState(false);
   const { data: session, status } = useSession();
   const [myImage, setMyImage] = useState(post?.imageUrl || null);
+  const { toast } = useToast();
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -184,7 +186,18 @@ const PromptCard = ({
                     post.prompt,
                     post._id.toString()
                   );
-                  setMyImage(response);
+                  
+                  if (response && response.error) {
+                    toast({
+                      variant: "destructive",
+                      title: "Generation Failed",
+                      description: response.error,
+                    });
+                    setMyImage(null);
+                  } else if (response && response.image) {
+                    setMyImage(response.image);
+                  }
+                  
                   setIsLoading(false);
                 }}
                 disabled={isLoading}>

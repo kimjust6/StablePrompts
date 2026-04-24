@@ -3,6 +3,7 @@ import Provider from "@/components/Provider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import "@/styles/globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from "@/components/ui/toaster";
 export const metadata = {
   title: "Stable Diffusion Prompts",
   description:
@@ -20,6 +21,7 @@ const RootLayout = ({ children }) => {
                 {children}
                 {/* <Analytics /> */}
               </main>
+              <Toaster />
             </Provider>
         </ThemeProvider>
       </body>
