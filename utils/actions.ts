@@ -78,7 +78,7 @@ export async function generateGeminiImageAndSaveToDb(
 export async function getAllPrompts(): Promise<string> {
   try {
     await connectToDB();
-    const prompts = await Prompt.find({}).populate("creator").select("-imageUrl");
+    const prompts = await Prompt.find({}).sort({ _id: -1 }).populate("creator").select("-imageUrl");
 
     return JSON.stringify(prompts);
   } catch (error) {
@@ -91,7 +91,7 @@ export async function getPromptByCreatorId(id: string): Promise<string> {
   try {
     await connectToDB();
     // find singular prompt with id params.id
-    const prompt = await Prompt.find({ creator: id }).populate("creator");
+    const prompt = await Prompt.find({ creator: id }).sort({ _id: -1 }).populate("creator");
 
     // case where prompt does not exist
     if (!prompt) {
