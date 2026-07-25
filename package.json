@@ -51,11 +51,11 @@
     "eslint-config-next": "15.5.9",
     "lucide-react": "^0.562.0",
     "mongodb": "^5.9.2",
-    "mongoose": "^7.8.8",
+    "mongoose": "^7.8.11",
     "next": "^16.1.6",
-    "next-auth": "^4.24.13",
+    "next-auth": "^4.24.15",
     "next-themes": "^0.4.6",
-    "postcss": "^8.5.10",
+    "postcss": "^8.5.23",
     "react": "19.2.3",
     "react-day-picker": "^9.11.3",
     "react-dom": "19.2.3",
@@ -73,8 +73,10 @@
   },
   "overrides": {
     "@types/react": "19.2.7",
-    "tar": "^7.5.17",
-    "postcss": "^8.5.10",
+    "brace-expansion": "^5.0.8",
+    "postcss": "^8.5.23",
+    "sharp": "^0.35.3",
+    "tar": "^7.5.22",
     "uuid": "^14.0.0"
   }
 }
